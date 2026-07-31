@@ -1,42 +1,17 @@
 import React from 'react';
 
-export const Footer: React.FC = () => {
+export default function Footer() {
   return (
-    <footer className="border-t border-border bg-black/60 py-12 px-8 text-sm text-gray-400">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-        <div>
-          <h4 className="text-white font-bold mb-4">MoonWitch OSINT</h4>
-          <p className="text-xs text-gray-500 leading-relaxed">
-            Enterprise OSINT intelligence recovery platform. Secure, confidential, and compliant lookup algorithms.
-          </p>
-        </div>
-        <div>
-          <h5 className="text-white font-semibold mb-3">Platform</h5>
-          <ul className="space-y-2 text-xs">
-            <li>Number Intelligence</li>
-            <li>Vehicle Verification</li>
-            <li>UPI Records</li>
-            <li>Aadhaar Verification</li>
-          </ul>
-        </div>
-        <div>
-          <h5 className="text-white font-semibold mb-3">Legal</h5>
-          <ul className="space-y-2 text-xs">
-            <li>Privacy Policy</li>
-            <li>Terms of Service</li>
-            <li>Data Protection Notice</li>
-          </ul>
-        </div>
-        <div>
-          <h5 className="text-white font-semibold mb-3">Acknowledgements</h5>
-          <p className="text-xs text-gray-400">
-            Special thanks to <span className="text-white">Souvik</span>, <span className="text-white">Spandan</span>, and <span className="text-white">Yash</span>.
-          </p>
-        </div>
+    <footer className="border-t border-border py-12 px-6 max-w-7xl mx-auto mt-20 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 relative z-10">
+      <div>© 2026 MoonWitch OSINT. All rights reserved.</div>
+      <div className="flex items-center gap-6 my-4 md:my-0">
+        <a href="#" className="hover:text-pink-400 transition-colors">Privacy Policy</a>
+        <a href="#" className="hover:text-pink-400 transition-colors">Terms of Service</a>
+        <a href="#" className="hover:text-pink-400 transition-colors">Contact</a>
       </div>
-      <div className="max-w-7xl mx-auto border-t border-border/50 pt-6 text-center text-xs text-gray-600">
-        &copy; {new Date().getFullYear()} MoonWitch. All rights reserved.
+      <div className="text-xs text-gray-600">
+        Special Thanks: Souvik • Spandan • Yash
       </div>
     </footer>
   );
-};
+}
