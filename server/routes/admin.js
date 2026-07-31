@@ -1,13 +1,41 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const History = require('../models/History');
+const auth = require('../middleware/auth');
 
+// New: Admin Password Login Route
+router.post('/login', (req, res) => {
+  const { password } = req.body;
+  
+  if (!process.env.ADMIN_PASSWORD) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD not configured in server env' });
+  }
+
+  if (password === process.env.ADMIN_PASSWORD) {
+    // Issue a special superadmin token
+    const token = jwt.sign({ role: 'superadmin' }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    return res.json({ token });
+  }
+
+  return res.status(401).json({ error: 'Invalid admin credentials' });
+});
+
+// Updated: Admin middleware check
 const adminOnly = async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-  if (!user || user.role !== 'admin') return res.status(403).json({ error: 'Access denied. Admins only.' });
-  next();
+  // Allow if logged in via the new Master Password
+  if (req.user && req.user.role === 'superadmin') {
+    return next();
+  }
+  
+  // Fallback for legacy DB admins
+  if (req.user && req.user.id) {
+    const user = await User.findById(req.user.id);
+    if (user && user.role === 'admin') return next();
+  }
+  
+  return res.status(403).json({ error: 'Access denied. Master admin only.' });
 };
 
 router.get('/stats', auth, adminOnly, async (req, res) => {
@@ -31,7 +59,10 @@ router.post('/users/:id/modify', auth, adminOnly, async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
 
-  if (credits !== undefined) user.credits = credits;
+  // Add credits directly to existing balance
+  if (credits !== undefined) user.credits += credits;
+  
+  // Subscription Auto-Expiry Logic
   if (subscription !== undefined) {
     user.subscription = subscription;
     if (subscription === 'weekly') user.subscriptionExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
@@ -40,8 +71,19 @@ router.post('/users/:id/modify', auth, adminOnly, async (req, res) => {
     if (subscription === 'none') user.subscriptionExpiry = null;
   }
 
+  // Ensure credits don't drop below 0 if reset
+  if (user.credits < 0) user.credits = 0;
+
   await user.save();
   res.json({ success: true, user });
+});
+
+router.post('/users/:id/reset-credits', auth, adminOnly, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  user.credits = 0;
+  await user.save();
+  res.json({ success: true });
 });
 
 router.delete('/users/:id', auth, adminOnly, async (req, res) => {
