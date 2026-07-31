@@ -1,91 +1,90 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
-import { Trash, Plus, Shield } from 'lucide-react';
+import { Users, Shield, Database, Trash2 } from 'lucide-react';
 
-export const AdminDashboard: React.FC = () => {
-  const [stats, setStats] = useState<any>({});
+export default function AdminDashboard() {
+  const [stats, setStats] = useState<any>(null);
   const [users, setUsers] = useState<any[]>([]);
 
-  const loadData = async () => {
-    try {
-      const statsRes = await api.get('/admin/stats');
-      setStats(statsRes.data);
-      const usersRes = await api.get('/admin/users');
-      setUsers(usersRes.data);
-    } catch (err) {
-      console.error(err);
-    }
+  useEffect(() => {
+    api.get('/admin/stats').then(res => setStats(res.data)).catch(() => {});
+    api.get('/admin/users').then(res => setUsers(res.data)).catch(() => {});
+  }, []);
+
+  const modifyUser = async (id: string, credits: number, subscription: string) => {
+    await api.post(`/admin/users/${id}/modify`, { credits, subscription });
+    window.location.reload();
   };
 
-  useEffect(() => { loadData(); }, []);
-
-  const handleUpdateUser = async (id: string, update: any) => {
-    await api.put(`/admin/user/${id}`, update);
-    loadData();
-  };
-
-  const handleDeleteUser = async (id: string) => {
-    if (confirm('Delete this user?')) {
-      await api.delete(`/admin/user/${id}`);
-      loadData();
+  const deleteUser = async (id: string) => {
+    if (confirm('Are you sure you want to delete this user?')) {
+      await api.delete(`/admin/users/${id}`);
+      window.location.reload();
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 p-6">
-      <div className="flex items-center space-x-3 border-b border-border pb-4">
-        <Shield className="text-red-400 w-6 h-6" />
-        <h1 className="text-xl font-bold">Admin Management Control Console</h1>
-      </div>
+    <div className="min-h-screen bg-dark p-10 text-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-pink-glow opacity-40 pointer-events-none" />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <h1 className="text-3xl font-bold mb-2">Admin Control Center</h1>
+        <p className="text-gray-400 mb-8">Manage system users, subscriptions, and platform telemetry.</p>
 
-      <div className="grid grid-cols-4 gap-4 text-center">
-        <StatCard title="Total Users" value={stats.totalUsers || 0} />
-        <StatCard title="Active Subs" value={stats.activeSubs || 0} />
-        <StatCard title="Distributed Credits" value={stats.totalCredits || 0} />
-        <StatCard title="Total Audits" value={stats.totalLookups || 0} />
-      </div>
+        {stats && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-glass-gradient border border-border p-6 rounded-2xl flex items-center gap-4 shadow-3d">
+              <Users className="w-8 h-8 text-pink-400" />
+              <div>
+                <div className="text-gray-400 text-sm">Total Users</div>
+                <div className="text-2xl font-bold font-mono">{stats.totalUsers}</div>
+              </div>
+            </div>
+            <div className="bg-glass-gradient border border-border p-6 rounded-2xl flex items-center gap-4 shadow-3d">
+              <Shield className="w-8 h-8 text-pink-400" />
+              <div>
+                <div className="text-gray-400 text-sm">Active Subscriptions</div>
+                <div className="text-2xl font-bold font-mono">{stats.activeSubs}</div>
+              </div>
+            </div>
+            <div className="bg-glass-gradient border border-border p-6 rounded-2xl flex items-center gap-4 shadow-3d">
+              <Database className="w-8 h-8 text-pink-400" />
+              <div>
+                <div className="text-gray-400 text-sm">Total Lookups</div>
+                <div className="text-2xl font-bold font-mono">{stats.totalLookups}</div>
+              </div>
+            </div>
+          </div>
+        )}
 
-      <div className="bg-surface border border-border rounded-xl overflow-hidden">
-        <table className="w-full text-left text-xs">
-          <thead className="bg-black/60 border-b border-border text-gray-400">
-            <tr>
-              <th className="p-4">User</th>
-              <th className="p-4">Role</th>
-              <th className="p-4">Credits</th>
-              <th className="p-4">Plan</th>
-              <th className="p-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border/40 font-mono">
-            {users.map((u: any) => (
-              <tr key={u._id}>
-                <td className="p-4">{u.email}</td>
-                <td className="p-4 uppercase text-gray-400">{u.role}</td>
-                <td className="p-4 text-accent font-bold">{u.credits}</td>
-                <td className="p-4 uppercase text-green-400">{u.subscription}</td>
-                <td className="p-4 flex space-x-2">
-                  <button onClick={() => handleUpdateUser(u._id, { credits: u.credits + 50 })} className="p-1 bg-blue-500/10 text-blue-400 rounded hover:bg-blue-500/20" title="Add 50 Credits">
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                  <button onClick={() => handleUpdateUser(u._id, { subscription: 'monthly' })} className="px-2 py-1 bg-green-500/10 text-green-400 rounded text-[10px]" title="Grant Monthly">
-                    Grant Sub
-                  </button>
-                  <button onClick={() => handleDeleteUser(u._id)} className="p-1 bg-red-500/10 text-red-400 rounded hover:bg-red-500/20" title="Delete User">
-                    <Trash className="w-3.5 h-3.5" />
-                  </button>
-                </td>
+        <div className="bg-glass-gradient border border-border rounded-2xl overflow-hidden shadow-3d">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="border-b border-border text-xs uppercase tracking-wider text-gray-400 bg-surface">
+                <th className="p-4">Username</th>
+                <th className="p-4">Credits</th>
+                <th className="p-4">Subscription</th>
+                <th className="p-4">Role</th>
+                <th className="p-4">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-border text-sm">
+              {users.map(u => (
+                <tr key={u._id} className="hover:bg-white/5 transition-colors">
+                  <td className="p-4 font-mono text-pink-300">{u.username}</td>
+                  <td className="p-4 font-mono">{u.credits}</td>
+                  <td className="p-4 uppercase text-xs font-semibold text-pink-400">{u.subscription}</td>
+                  <td className="p-4">{u.role}</td>
+                  <td className="p-4 flex items-center gap-2">
+                    <button onClick={() => modifyUser(u._id, u.credits + 10, u.subscription)} className="px-3 py-1 bg-surface border border-border rounded text-xs hover:bg-white/10">Add 10 Credits</button>
+                    <button onClick={() => modifyUser(u._id, u.credits, 'monthly')} className="px-3 py-1 bg-surface border border-border rounded text-xs hover:bg-white/10">Grant Monthly</button>
+                    <button onClick={() => deleteUser(u._id)} className="p-1 hover:text-red-400 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
-};
-
-const StatCard = ({ title, value }: any) => (
-  <div className="bg-surface border border-border p-4 rounded-xl">
-    <div className="text-xs text-gray-400 mb-1">{title}</div>
-    <div className="text-xl font-bold">{value}</div>
-  </div>
-);
+}
