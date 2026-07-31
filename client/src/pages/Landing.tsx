@@ -1,32 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, Shield, Database, Zap, ArrowRight, Check, Lock } from 'lucide-react';
+import { Search, Shield, Database, Zap, ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
 
 export default function Landing() {
   return (
     <div className="min-h-screen bg-dark text-white selection:bg-pink-500 selection:text-white relative overflow-hidden">
-      {/* Background Pink Glow */}
       <div className="absolute inset-0 bg-pink-glow opacity-50 pointer-events-none" />
+      <Navbar />
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-border px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl tracking-wider">
-            <Shield className="text-pink-500 w-6 h-6" />
-            <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link to="/protected-data" className="text-sm text-gray-400 hover:text-pink-400 transition-colors">Protect Data</Link>
-            <Link to="/login" className="text-sm font-medium hover:text-pink-400 transition-colors">Sign In</Link>
-            <Link to="/login" className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-sm font-medium rounded-lg transition-all shadow-[0_0_15px_rgba(236,72,153,0.3)]">
-              Initialize
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
       <section className="relative pt-36 pb-20 px-6 max-w-7xl mx-auto text-center flex flex-col items-center z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="px-3 py-1 bg-surface border border-pink-500/30 rounded-full text-xs font-mono text-pink-400 mb-6 inline-block shadow-[0_0_15px_rgba(236,72,153,0.2)]">
@@ -49,7 +33,6 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      {/* Intelligence Modules */}
       <section className="py-20 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">Intelligence Services</h2>
@@ -63,7 +46,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Pricing Section */}
       <section id="pricing" className="py-20 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">Intelligence Packages</h2>
@@ -114,13 +96,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-12 px-6 max-w-7xl mx-auto mt-20 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 z-10 relative">
-        <div>© 2026 MoonWitch OSINT. All rights reserved.</div>
-        <div className="text-xs text-gray-600 mt-4 md:mt-0">
-          Special Thanks: Souvik • Spandan • Yash
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
