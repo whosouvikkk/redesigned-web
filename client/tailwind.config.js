@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#0a0508', /* Deep pinkish black */
+        dark: '#0a0508',
         surface: 'rgba(255, 255, 255, 0.03)',
-        border: 'rgba(236, 72, 153, 0.15)', /* Subtle pink border */
-        accent: '#ec4899', /* Pink-500 */
+        border: 'rgba(236, 72, 153, 0.15)',
+        accent: '#ec4899',
       },
       backgroundImage: {
         'glass-gradient': 'linear-gradient(145deg, rgba(236,72,153,0.05) 0%, rgba(0,0,0,0.6) 100%)',
