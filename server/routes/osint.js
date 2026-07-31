@@ -20,12 +20,13 @@ router.post('/search', auth, async (req, res) => {
     return res.status(403).json({ error: 'Insufficient credits' });
   }
 
+  // Updated URL mapping including vehicle2number and bomber
   const urls = {
     number: process.env.OSINT_NUMBER_URL,
     vehicle: process.env.OSINT_VEHICLE_URL,
+    vehicle2number: process.env.OSINT_VEHICLE2NUMBER_URL || process.env.OSINT_VEHICLE_URL,
     aadhar: process.env.OSINT_AADHAR_URL,
-    upi: process.env.OSINT_UPI_URL,
-    domain: process.env.OSINT_DOMAIN_URL,
+    bomber: process.env.OSINT_BOMBER_URL || process.env.OSINT_NUMBER_URL,
   };
 
   const endpoint = urls[type];
@@ -46,7 +47,8 @@ router.post('/search', auth, async (req, res) => {
     return res.json(data);
   } catch (error) {
     await History.create({ userId: user._id, type, query, status: 'failed' });
-    return res.status(500).json({ error: 'Lookup failed at upstream provider' });
+    // If any API error occurs, show "No data found in database" as requested
+    return res.status(404).json({ error: 'No data found in database' });
   }
 });
 
