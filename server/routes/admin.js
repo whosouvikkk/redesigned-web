@@ -4,80 +4,49 @@ const auth = require('../middleware/auth');
 const User = require('../models/User');
 const History = require('../models/History');
 
-// Admin Middleware Verification
 const adminOnly = async (req, res, next) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Access denied. Admin rights required.' });
-  }
+  const user = await User.findById(req.user.id);
+  if (!user || user.role !== 'admin') return res.status(403).json({ error: 'Access denied. Admins only.' });
   next();
 };
 
-// Admin Stats Overview
-router.get('/stats', [auth, adminOnly], async (req, res) => {
-  try {
-    const totalUsers = await User.countDocuments();
-    const activeSubs = await User.countDocuments({ subscription: { $ne: 'none' } });
-    const creditsAgg = await User.aggregate([{ $group: { _id: null, total: { $sum: '$credits' } } }]);
-    const totalCredits = creditsAgg[0]?.total || 0;
-    const totalLookups = await History.countDocuments();
+router.get('/stats', auth, adminOnly, async (req, res) => {
+  const totalUsers = await User.countDocuments();
+  const activeSubs = await User.countDocuments({ 
+    $or: [{ subscription: 'lifetime' }, { subscriptionExpiry: { $gt: new Date() } }] 
+  });
+  const totalLookups = await History.countDocuments();
+  const recentSignups = await User.find().sort({ createdAt: -1 }).limit(5);
 
-    const recentSignups = await User.find().select('-password').sort({ createdAt: -1 }).limit(5);
-
-    res.json({
-      totalUsers,
-      activeSubs,
-      totalCredits,
-      totalLookups,
-      recentSignups
-    });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to load stats' });
-  }
+  res.json({ totalUsers, activeSubs, totalLookups, recentSignups });
 });
 
-// Manage Users (Search / Edit / Delete / Credits)
-router.get('/users', [auth, adminOnly], async (req, res) => {
-  try {
-    const users = await User.find().select('-password').sort({ createdAt: -1 });
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch users' });
-  }
+router.get('/users', auth, adminOnly, async (req, res) => {
+  const users = await User.find().select('-password').sort({ createdAt: -1 });
+  res.json(users);
 });
 
-router.put('/user/:id', [auth, adminOnly], async (req, res) => {
-  const { credits, subscription, role } = req.body;
-  try {
-    const updateData = {};
-    if (credits !== undefined) updateData.credits = credits;
-    if (role) updateData.role = role;
-    if (subscription) {
-      updateData.subscription = subscription;
-      if (subscription === 'weekly') {
-        updateData.subscriptionExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      } else if (subscription === 'monthly') {
-        updateData.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-      } else if (subscription === 'lifetime') {
-        updateData.subscriptionExpiry = null;
-      } else if (subscription === 'none') {
-        updateData.subscriptionExpiry = null;
-      }
-    }
+router.post('/users/:id/modify', auth, adminOnly, async (req, res) => {
+  const { credits, subscription } = req.body;
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
 
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true }).select('-password');
-    res.json(updatedUser);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update user' });
+  if (credits !== undefined) user.credits = credits;
+  if (subscription !== undefined) {
+    user.subscription = subscription;
+    if (subscription === 'weekly') user.subscriptionExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    if (subscription === 'monthly') user.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    if (subscription === 'lifetime') user.subscriptionExpiry = null;
+    if (subscription === 'none') user.subscriptionExpiry = null;
   }
+
+  await user.save();
+  res.json({ success: true, user });
 });
 
-router.delete('/user/:id', [auth, adminOnly], async (req, res) => {
-  try {
-    await User.findByIdAndDelete(req.params.id);
-    res.json({ message: 'User deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to delete user' });
-  }
+router.delete('/users/:id', auth, adminOnly, async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+  res.json({ success: true });
 });
 
 module.exports = router;
