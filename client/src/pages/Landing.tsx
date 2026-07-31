@@ -1,8 +1,8 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Search, Shield, Database, Zap, ArrowRight, Check, Activity, 
-  Lock, Fingerprint, Globe, User, Car, CreditCard, ShieldCheck, 
+  Lock, Globe, User, Car, CreditCard, ShieldCheck, 
   HelpCircle, Terminal 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -10,17 +10,38 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
 export default function Landing() {
-  const { scrollYProgress } = useScroll();
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-
   return (
     <div className="min-h-screen bg-dark text-white selection:bg-pink-500 selection:text-white relative overflow-hidden font-sans">
       
-      {/* 3D Floating Background Geometry */}
-      <motion.div style={{ y: y1 }} className="absolute top-[10%] left-[5%] w-64 h-64 bg-pink-600/10 blur-[80px] rounded-full pointer-events-none" />
-      <motion.div style={{ y: y2 }} className="absolute top-[40%] right-[5%] w-96 h-96 bg-pink-500/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-pink-500/15 blur-[160px] rounded-full pointer-events-none" />
+      {/* --- LIVE BACKGROUND EFFECTS START --- */}
+      
+      {/* 1. Cyber Grid (Pulses slowly) */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ec489915_1px,transparent_1px),linear-gradient(to_bottom,#ec489915_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] animate-[pulse_8s_ease-in-out_infinite]" />
+
+      {/* 2. Breathing Ambient Spotlights */}
+      <motion.div 
+        animate={{ y: [0, -40, 0], scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-pink-600/20 blur-[150px] rounded-full pointer-events-none z-0" 
+      />
+      <motion.div 
+        animate={{ y: [0, 50, 0], x: [0, -30, 0], scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-pink-600/20 blur-[150px] rounded-full pointer-events-none z-0" 
+      />
+      <motion.div 
+        animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-pink-500/15 blur-[160px] rounded-full pointer-events-none z-0" 
+      />
+
+      {/* 3. Floating Data Nodes (Particles) */}
+      <motion.div animate={{ y: [0, -100, 0], x: [0, 50, 0], opacity: [0, 0.8, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-[30%] left-[20%] w-1.5 h-1.5 bg-pink-400 rounded-full shadow-[0_0_12px_#ec4899] z-0" />
+      <motion.div animate={{ y: [0, 100, 0], x: [0, -50, 0], opacity: [0, 0.6, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }} className="absolute top-[60%] right-[25%] w-2 h-2 bg-pink-300 rounded-full shadow-[0_0_15px_#ec4899] z-0" />
+      <motion.div animate={{ y: [0, -80, 0], x: [0, -30, 0], opacity: [0, 0.9, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "linear", delay: 5 }} className="absolute top-[80%] left-[40%] w-1 h-1 bg-pink-500 rounded-full shadow-[0_0_10px_#ec4899] z-0" />
+      <motion.div animate={{ y: [0, -120, 0], x: [0, 80, 0], opacity: [0, 0.7, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 1 }} className="absolute top-[20%] right-[40%] w-1.5 h-1.5 bg-rose-400 rounded-full shadow-[0_0_12px_#f43f5e] z-0" />
+      
+      {/* --- LIVE BACKGROUND EFFECTS END --- */}
 
       <Navbar />
 
@@ -28,8 +49,8 @@ export default function Landing() {
       <section className="relative pt-40 pb-12 px-6 max-w-7xl mx-auto text-center flex flex-col items-center z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="w-full">
           
-          <div className="mx-auto w-fit px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono tracking-wide mb-8 shadow-glass-edge flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
+          <div className="mx-auto w-fit px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono tracking-wide mb-8 shadow-glass-edge flex items-center gap-2 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-pink-500 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite] shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
             ENTERPRISE OSINT v4.2 INTELLIGENCE ENGINE
           </div>
           
@@ -75,7 +96,10 @@ export default function Landing() {
               <div className="px-4 py-1.5 bg-black/80 border border-white/10 shadow-inner rounded-full text-xs text-gray-400 font-mono flex items-center gap-2">
                 <Lock className="w-3 h-3 text-pink-400" /> secure.moonwitch.osint/terminal
               </div>
-              <div className="text-xs font-mono text-pink-400 font-semibold shadow-pink-500 drop-shadow-md">STATUS: ACTIVE</div>
+              <div className="text-xs font-mono text-pink-400 font-semibold shadow-pink-500 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
+                STATUS: ACTIVE
+              </div>
             </div>
             
             {/* Body Preview */}
@@ -89,39 +113,40 @@ export default function Landing() {
                   <div className="h-8 bg-white/[0.02] border border-white/5 shadow-inner rounded-lg w-full" />
                   <div className="h-8 bg-white/[0.02] border border-white/5 shadow-inner rounded-lg w-full" />
                 </div>
-                <div className="bg-gradient-to-br from-pink-500/10 to-transparent border border-pink-500/20 p-4 rounded-xl text-xs font-mono shadow-glass-edge">
-                  <div className="text-gray-400">Credits Left</div>
-                  <div className="text-pink-400 font-bold text-xl drop-shadow-md">250 / 250</div>
+                <div className="bg-gradient-to-br from-pink-500/10 to-transparent border border-pink-500/20 p-4 rounded-xl text-xs font-mono shadow-glass-edge relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-pink-500/20 blur-[20px]" />
+                  <div className="text-gray-400 relative z-10">Credits Left</div>
+                  <div className="text-pink-400 font-bold text-xl drop-shadow-md relative z-10">250 / 250</div>
                 </div>
               </div>
 
               {/* Main Workspace Preview */}
               <div className="flex-1 flex flex-col gap-4">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-28">
-                  <div className="bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex flex-col justify-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-pink-500/10 blur-[20px]" />
+                  <div className="bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex flex-col justify-center relative overflow-hidden group/card">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-pink-500/10 blur-[20px] group-hover/card:bg-pink-500/20 transition-colors" />
                     <div className="text-xs text-gray-400 mb-1 relative z-10">Active Queries</div>
                     <div className="text-2xl font-bold text-white font-mono relative z-10">14,258</div>
-                    <Activity className="absolute right-3 bottom-3 w-8 h-8 text-pink-500/20" />
+                    <Activity className="absolute right-3 bottom-3 w-8 h-8 text-pink-500/20 group-hover/card:text-pink-500/40 transition-colors" />
                   </div>
-                  <div className="bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex flex-col justify-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-pink-500/10 blur-[20px]" />
+                  <div className="bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex flex-col justify-center relative overflow-hidden group/card">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-pink-500/10 blur-[20px] group-hover/card:bg-pink-500/20 transition-colors" />
                     <div className="text-xs text-gray-400 mb-1 relative z-10">Success Rate</div>
                     <div className="text-2xl font-bold text-pink-400 font-mono relative z-10">99.9%</div>
-                    <Shield className="absolute right-3 bottom-3 w-8 h-8 text-pink-500/20" />
+                    <Shield className="absolute right-3 bottom-3 w-8 h-8 text-pink-500/20 group-hover/card:text-pink-500/40 transition-colors" />
                   </div>
-                  <div className="hidden md:flex bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex-col justify-center relative overflow-hidden">
+                  <div className="hidden md:flex bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex-col justify-center relative overflow-hidden group/card">
                     <div className="text-xs text-gray-400 mb-1 relative z-10">Response Time</div>
                     <div className="text-2xl font-bold text-green-400 font-mono relative z-10">240ms</div>
-                    <Zap className="absolute right-3 bottom-3 w-8 h-8 text-green-500/20" />
+                    <Zap className="absolute right-3 bottom-3 w-8 h-8 text-green-500/20 group-hover/card:text-green-500/40 transition-colors" />
                   </div>
                 </div>
 
                 {/* Live Output Window */}
-                <div className="flex-1 bg-[#050204] rounded-xl border border-black shadow-[inset_0_5px_20px_rgba(0,0,0,1)] p-5 font-mono text-xs text-pink-300 overflow-hidden relative">
+                <div className="flex-1 bg-[#050204] rounded-xl border border-black shadow-[inset_0_5px_20px_rgba(0,0,0,1)] p-5 font-mono text-xs text-pink-300 overflow-hidden relative flex flex-col">
                   <div className="flex justify-between items-center text-gray-500 border-b border-white/10 pb-2 mb-3">
                     <span>Target: +91 98765*****</span>
-                    <span>TYPE: TELECOM_LOOKUP</span>
+                    <span className="flex items-center gap-2"><Activity className="w-3 h-3 animate-pulse text-green-400"/> TYPE: TELECOM_LOOKUP</span>
                   </div>
                   <pre className="text-green-400 leading-relaxed text-[13px] drop-shadow-[0_0_8px_rgba(74,222,128,0.3)]">
 {`{
@@ -132,6 +157,8 @@ export default function Landing() {
   "key_owner": "MoonWitch"
 }`}
                   </pre>
+                  {/* Blinking cursor effect */}
+                  <div className="mt-2 w-2 h-4 bg-green-400 animate-pulse opacity-80 shadow-[0_0_8px_#4ade80]" />
                 </div>
               </div>
             </div>
@@ -142,7 +169,7 @@ export default function Landing() {
       {/* 3. REAL LOOKUP EXAMPLES */}
       <section className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center mb-16">
-          <div className="mx-auto w-fit px-3 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono mb-4 shadow-glass-edge">
+          <div className="mx-auto w-fit px-3 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono mb-4 shadow-glass-edge backdrop-blur-md">
             LIVE DEMONSTRATION
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Real Intelligence Examples</h2>
@@ -172,7 +199,7 @@ export default function Landing() {
       {/* 5. PRICING SECTION */}
       <section id="pricing" className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="text-center mb-16">
-          <div className="mx-auto w-fit px-3 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono mb-4 shadow-glass-edge">
+          <div className="mx-auto w-fit px-3 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-400 text-xs font-mono mb-4 shadow-glass-edge backdrop-blur-md">
             FLEXIBLE ACCESS
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">Transparent Pricing</h2>
@@ -193,10 +220,10 @@ export default function Landing() {
 
 function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; title: string; subtitle: string; data: { label: string; value: string }[] }) {
   return (
-    <div className="bg-[#0d070a] border border-white/5 p-6 rounded-2xl shadow-3d hover:shadow-3d-hover shadow-glass-edge transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 blur-[40px] group-hover:bg-pink-500/10 transition-colors" />
+    <div className="bg-[#0d070a]/90 backdrop-blur-md border border-white/5 p-6 rounded-2xl shadow-3d hover:shadow-3d-hover shadow-glass-edge transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 blur-[40px] group-hover:bg-pink-500/15 transition-colors" />
       <div className="flex items-center gap-3 mb-4 relative z-10">
-        <div className="p-2.5 bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] text-pink-400">{icon}</div>
+        <div className="p-2.5 bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] text-pink-400 group-hover:shadow-[0_0_15px_rgba(236,72,153,0.3)] transition-shadow">{icon}</div>
         <div>
           <h3 className="text-base font-bold text-white">{title}</h3>
           <p className="text-xs text-gray-500">{subtitle}</p>
@@ -216,8 +243,8 @@ function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; ti
 
 function BenefitBox({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="bg-[#0d070a] border border-white/5 shadow-glass-edge shadow-3d p-6 rounded-2xl hover:border-pink-500/40 transition-colors">
-      <div className="p-2 bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 rounded-xl w-fit mb-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
+    <div className="bg-[#0d070a]/90 backdrop-blur-md border border-white/5 shadow-glass-edge shadow-3d p-6 rounded-2xl hover:border-pink-500/40 transition-colors group">
+      <div className="p-2 bg-gradient-to-br from-pink-500/20 to-transparent border border-pink-500/20 rounded-xl w-fit mb-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] group-hover:shadow-[0_0_15px_rgba(236,72,153,0.3)] transition-shadow">
         <Check className="w-5 h-5 text-pink-400" />
       </div>
       <h3 className="text-lg font-bold mb-2">{title}</h3>
@@ -228,12 +255,12 @@ function BenefitBox({ title, desc }: { title: string; desc: string }) {
 
 function PricingCard({ title, price, period, desc, features, popular }: { title: string; price: string; period: string; desc: string; features: string[]; popular?: boolean }) {
   return (
-    <div className={`bg-[#0d070a] border transition-all duration-500 hover:-translate-y-2 min-h-[480px] flex flex-col justify-between ${popular ? 'border-pink-500 shadow-3d-hover scale-105 z-10 bg-gradient-to-b from-[#1a0b12] to-black shadow-glass-edge' : 'border-white/5 shadow-3d shadow-glass-edge'} p-8 rounded-3xl relative overflow-hidden group`}>
+    <div className={`bg-[#0d070a]/90 backdrop-blur-md border transition-all duration-500 hover:-translate-y-2 min-h-[480px] flex flex-col justify-between ${popular ? 'border-pink-500 shadow-3d-hover scale-105 z-10 bg-gradient-to-b from-[#1a0b12] to-black shadow-glass-edge' : 'border-white/5 shadow-3d shadow-glass-edge'} p-8 rounded-3xl relative overflow-hidden group`}>
       {popular && <span className="absolute top-0 inset-x-0 text-center bg-gradient-to-r from-pink-600 to-rose-600 text-white text-[10px] py-1 uppercase tracking-widest font-bold shadow-[0_5px_10px_rgba(236,72,153,0.3)]">Most Popular</span>}
       <div className={`flex-1 ${popular ? 'pt-4' : ''}`}>
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-xs text-gray-400 mb-6">{desc}</p>
-        <div className="text-4xl font-extrabold mb-1 drop-shadow-md">{price} <span className="text-sm font-normal text-gray-500">/ {period}</span></div>
+        <h3 className="text-xl font-bold mb-2 relative z-10">{title}</h3>
+        <p className="text-xs text-gray-400 mb-6 relative z-10">{desc}</p>
+        <div className="text-4xl font-extrabold mb-1 drop-shadow-md relative z-10">{price} <span className="text-sm font-normal text-gray-500">/ {period}</span></div>
         <div className="space-y-3 mt-8 pt-6 border-t border-white/5 relative z-10">
           {features.map((f, i) => (
             <div key={i} className="flex items-start gap-2.5 text-xs text-gray-300">
