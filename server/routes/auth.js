@@ -15,10 +15,17 @@ router.post('/register', async (req, res) => {
     user = new User({ username, password: hashedPassword, credits: 5 });
     await user.save();
 
+    // Check if JWT_SECRET exists
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is missing on the server.");
+    }
+
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({ token, user: { id: user._id, username: user.username, credits: user.credits, subscription: user.subscription, role: user.role } });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error("Registration Error:", err);
+    // Send the actual error message to the frontend
+    res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
 });
 
@@ -32,10 +39,16 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: 'Invalid password' });
 
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is missing on the server.");
+    }
+
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({ token, user: { id: user._id, username: user.username, credits: user.credits, subscription: user.subscription, role: user.role } });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error("Login Error:", err);
+    // Send the actual error message to the frontend
+    res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
 });
 
@@ -44,7 +57,7 @@ router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: err.message || 'Internal Server Error' });
   }
 });
 
