@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   Search, Shield, Database, Zap, ArrowRight, Check, Activity, 
   Lock, Fingerprint, Globe, User, Car, CreditCard, ShieldCheck, 
-  HelpCircle, Copy, Terminal 
+  HelpCircle, Terminal 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -50,7 +50,7 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      {/* 2. ANIMATED DASHBOARD PREVIEW MOCKUP */}
+      {/* 2. ANIMATED DASHBOARD PREVIEW MOCKUP (GRAPH REMOVED) */}
       <section className="relative px-6 max-w-6xl mx-auto z-10 mb-28">
         <motion.div 
           initial={{ opacity: 0, y: 40 }} 
@@ -58,7 +58,7 @@ export default function Landing() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="rounded-2xl border border-pink-500/20 bg-[#0a0508]/90 backdrop-blur-xl p-2 shadow-[0_0_60px_rgba(236,72,153,0.25)] hover:shadow-3d-hover transition-all duration-500"
         >
-          <div className="rounded-xl border border-white/5 bg-black/70 overflow-hidden flex flex-col h-[400px] md:h-[550px]">
+          <div className="rounded-xl border border-white/5 bg-black/70 overflow-hidden flex flex-col h-[400px] md:h-[500px]">
             {/* Header */}
             <div className="h-12 border-b border-white/10 flex items-center justify-between px-4 bg-white/[0.02]">
               <div className="flex items-center gap-2">
@@ -111,12 +111,12 @@ export default function Landing() {
                 </div>
 
                 {/* Live Output Window */}
-                <div className="flex-1 bg-black/80 rounded-xl border border-white/10 p-4 font-mono text-xs text-pink-300 overflow-hidden relative">
+                <div className="flex-1 bg-black/80 rounded-xl border border-white/10 p-5 font-mono text-xs text-pink-300 overflow-hidden relative">
                   <div className="flex justify-between items-center text-gray-500 border-b border-white/10 pb-2 mb-3">
                     <span>Target: +91 98765*****</span>
                     <span>TYPE: TELECOM_LOOKUP</span>
                   </div>
-                  <pre className="text-green-400">
+                  <pre className="text-green-400 leading-relaxed">
 {`{
   "carrier": "Reliance Jio Infocomm",
   "circle": "Mumbai, India",
@@ -125,7 +125,6 @@ export default function Landing() {
   "key_owner": "MoonWitch"
 }`}
                   </pre>
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black to-transparent pointer-events-none" />
                 </div>
               </div>
             </div>
