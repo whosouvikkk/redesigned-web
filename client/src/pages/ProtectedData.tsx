@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Shield, Lock, CheckCircle, Send, FileText, AlertTriangle } from 'lucide-react';
+import { Shield, CheckCircle, Send } from 'lucide-react';
 import api from '../services/api';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
 
 export default function ProtectedData() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [reason, setReason] = useState('');
+  const [reason, setReason] = useState('privacy');
   const [details, setDetails] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -14,11 +16,9 @@ export default function ProtectedData() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Endpoint for data removal service request
       await api.post('/osint/protect-request', { name, phone, reason, details });
       setSubmitted(true);
     } catch (err) {
-      // Fallback display if endpoint is pending
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -26,8 +26,10 @@ export default function ProtectedData() {
   };
 
   return (
-    <div className="min-h-screen bg-dark text-white p-6 md:p-12 relative overflow-hidden">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-dark text-white relative overflow-hidden flex flex-col justify-between">
+      <Navbar />
+      
+      <div className="max-w-3xl mx-auto px-6 pt-32 pb-12 w-full flex-1">
         <div className="flex items-center gap-3 mb-8">
           <Shield className="w-8 h-8 text-pink-500" />
           <h1 className="text-3xl font-bold">Protected Data Removal Service</h1>
@@ -66,7 +68,7 @@ export default function ProtectedData() {
 
             <div>
               <label className="text-xs text-gray-400 block mb-1">Supporting Details</label>
-              <textarea value={details} onChange={e => setDetails(e.target.value)} rows={4} className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-pink-500" placeholder="Provide URLs or details..." />
+              <textarea value={details} onChange={e => setDetails(e.target.value)} rows={4} className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-pink-500" placeholder="Provide details..." />
             </div>
 
             <button type="submit" disabled={loading} className="w-full py-3 bg-pink-600 hover:bg-pink-500 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(236,72,153,0.3)]">
@@ -75,6 +77,8 @@ export default function ProtectedData() {
           </form>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }
