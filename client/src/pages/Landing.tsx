@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Search, Shield, Database, Zap, ArrowRight, Check, Activity, 
   Lock, Globe, User, Car, CreditCard, ShieldCheck, 
@@ -10,15 +10,16 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
 export default function Landing() {
+  const { scrollYProgress } = useScroll();
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+
   return (
     <div className="min-h-screen bg-dark text-white selection:bg-pink-500 selection:text-white relative overflow-hidden font-sans">
       
       {/* --- LIVE BACKGROUND EFFECTS START --- */}
-      
-      {/* 1. Cyber Grid (Pulses slowly) */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ec489915_1px,transparent_1px),linear-gradient(to_bottom,#ec489915_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] animate-[pulse_8s_ease-in-out_infinite]" />
 
-      {/* 2. Breathing Ambient Spotlights */}
       <motion.div 
         animate={{ y: [0, -40, 0], scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -35,12 +36,10 @@ export default function Landing() {
         className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-pink-500/15 blur-[160px] rounded-full pointer-events-none z-0" 
       />
 
-      {/* 3. Floating Data Nodes (Particles) */}
       <motion.div animate={{ y: [0, -100, 0], x: [0, 50, 0], opacity: [0, 0.8, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute top-[30%] left-[20%] w-1.5 h-1.5 bg-pink-400 rounded-full shadow-[0_0_12px_#ec4899] z-0" />
       <motion.div animate={{ y: [0, 100, 0], x: [0, -50, 0], opacity: [0, 0.6, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: 2 }} className="absolute top-[60%] right-[25%] w-2 h-2 bg-pink-300 rounded-full shadow-[0_0_15px_#ec4899] z-0" />
       <motion.div animate={{ y: [0, -80, 0], x: [0, -30, 0], opacity: [0, 0.9, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "linear", delay: 5 }} className="absolute top-[80%] left-[40%] w-1 h-1 bg-pink-500 rounded-full shadow-[0_0_10px_#ec4899] z-0" />
       <motion.div animate={{ y: [0, -120, 0], x: [0, 80, 0], opacity: [0, 0.7, 0] }} transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 1 }} className="absolute top-[20%] right-[40%] w-1.5 h-1.5 bg-rose-400 rounded-full shadow-[0_0_12px_#f43f5e] z-0" />
-      
       {/* --- LIVE BACKGROUND EFFECTS END --- */}
 
       <Navbar />
@@ -54,12 +53,12 @@ export default function Landing() {
             ENTERPRISE OSINT v4.2 INTELLIGENCE ENGINE
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl mx-auto leading-tight drop-shadow-2xl">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl mx-auto leading-tight drop-shadow-2xl h-[120px] md:h-[160px]">
             Intelligence <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-pink-300 to-pink-600">Beyond Search</span>
+            <TypewriterEffect words={['Beyond Search', 'In Real-Time', 'Without Limits', 'At Scale']} />
           </h1>
           
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed mt-4">
             Recover information from publicly available intelligence databases instantly. Verify identities, detect scams, and evaluate risk footprints securely.
           </p>
           
@@ -82,7 +81,6 @@ export default function Landing() {
           className="rounded-2xl border border-white/10 bg-[#0a0508]/80 backdrop-blur-2xl p-2 shadow-3d hover:shadow-3d-hover transition-all duration-700 relative group"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          {/* Glass Glare Overlay */}
           <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/10 pointer-events-none rounded-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay" />
           
           <div className="rounded-xl border border-black bg-black/90 overflow-hidden flex flex-col h-[400px] md:h-[550px] shadow-glass-edge relative">
@@ -104,7 +102,6 @@ export default function Landing() {
             
             {/* Body Preview */}
             <div className="flex-1 flex p-4 gap-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-900/10 via-black to-black">
-              {/* Sidebar Preview */}
               <div className="w-52 hidden md:flex flex-col justify-between border-r border-white/5 pr-4">
                 <div className="space-y-3">
                   <div className="h-8 bg-pink-500/20 border border-pink-500/30 rounded-lg w-full flex items-center px-3 text-xs text-pink-300 font-mono shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
@@ -120,7 +117,6 @@ export default function Landing() {
                 </div>
               </div>
 
-              {/* Main Workspace Preview */}
               <div className="flex-1 flex flex-col gap-4">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 h-28">
                   <div className="bg-white/[0.02] rounded-xl border border-white/5 shadow-glass-edge p-4 flex flex-col justify-center relative overflow-hidden group/card">
@@ -142,7 +138,6 @@ export default function Landing() {
                   </div>
                 </div>
 
-                {/* Live Output Window */}
                 <div className="flex-1 bg-[#050204] rounded-xl border border-black shadow-[inset_0_5px_20px_rgba(0,0,0,1)] p-5 font-mono text-xs text-pink-300 overflow-hidden relative flex flex-col">
                   <div className="flex justify-between items-center text-gray-500 border-b border-white/10 pb-2 mb-3">
                     <span>Target: +91 98765*****</span>
@@ -157,7 +152,6 @@ export default function Landing() {
   "key_owner": "MoonWitch"
 }`}
                   </pre>
-                  {/* Blinking cursor effect */}
                   <div className="mt-2 w-2 h-4 bg-green-400 animate-pulse opacity-80 shadow-[0_0_8px_#4ade80]" />
                 </div>
               </div>
@@ -215,6 +209,41 @@ export default function Landing() {
 
       <Footer />
     </div>
+  );
+}
+
+// --- REUSABLE COMPONENTS ---
+
+function TypewriterEffect({ words }: { words: string[] }) {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[currentWordIndex];
+    const typeSpeed = isDeleting ? 30 : 80;
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting && currentText === word) {
+        setTimeout(() => setIsDeleting(true), 2500); 
+      } else if (isDeleting && currentText === '') {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+      } else {
+        setCurrentText(word.substring(0, currentText.length + (isDeleting ? -1 : 1)));
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, currentWordIndex, words]);
+
+  return (
+    <span className="inline-block relative">
+      <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-pink-300 to-pink-600">
+        {currentText}
+      </span>
+      <span className="text-pink-500 animate-pulse ml-1 font-light">|</span>
+    </span>
   );
 }
 
