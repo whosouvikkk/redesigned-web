@@ -20,7 +20,6 @@ router.post('/search', auth, async (req, res) => {
     return res.status(403).json({ error: 'Insufficient credits' });
   }
 
-  // Updated URL mapping including vehicle2number and bomber
   const urls = {
     number: process.env.OSINT_NUMBER_URL,
     vehicle: process.env.OSINT_VEHICLE_URL,
@@ -36,7 +35,13 @@ router.post('/search', auth, async (req, res) => {
     const response = await axios.get(`${endpoint}${encodeURIComponent(query)}`);
     let data = response.data;
 
+    // Standard backend payload sanitization
     data = cleanPayload(data, process.env.KEY_OWNER_REPLACEMENT || 'MoonWitch');
+
+    // Target and remove the _proxy object specifically for vehicle lookups
+    if (type === 'vehicle' && data._proxy) {
+      delete data._proxy;
+    }
 
     if (!isSubActive) {
       user.credits -= 1;
@@ -47,7 +52,6 @@ router.post('/search', auth, async (req, res) => {
     return res.json(data);
   } catch (error) {
     await History.create({ userId: user._id, type, query, status: 'failed' });
-    // If any API error occurs, show "No data found in database" as requested
     return res.status(404).json({ error: 'No data found in database' });
   }
 });
