@@ -32,7 +32,7 @@ export default function Landing() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pink-500"></span>
             </span>
-            MoonWitch OSINT Engine v4.2
+            MoonWitch Open-Source Intelligence Engine v2
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 max-w-5xl mx-auto leading-[1.05] text-white drop-shadow-2xl">
