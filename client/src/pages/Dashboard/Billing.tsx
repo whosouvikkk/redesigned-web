@@ -19,38 +19,38 @@ export default function Billing() {
           index={0}
           title="Pay As You Go" 
           price="₹50" 
-          period="25 Credits" 
+          period="20 Credits" 
           desc="Minimum buy 20 credits." 
-          features={['Full API access', 'Lifetime credit validity', 'JSON Export capabilities']} 
-          link="#link-1-here" // <-- REPLACE WITH YOUR LINK LATER
+          features={['1 Credit = 1 Lookup', 'Lifetime credit validity (if unused)', 'Purchase additional credits anytime']} 
+          link="https://payuinew.vercel.app/credits" // <-- REPLACE WITH YOUR LINK LATER
         />
         <PricingCard 
           index={1}
           title="Weekly Pro" 
-          price="₹499" 
+          price="₹149" 
           period="7 Days" 
           desc="Unlimited short investigations." 
           popular 
-          features={['Unlimited lookups', 'Bypass credit logic', 'Priority premium badge']} 
-          link="#link-2-here" // <-- REPLACE WITH YOUR LINK LATER
+          features={['Unlimited lookups', 'Bypass credit logic', 'Priority lookup queue']}
+          link="https://payuinew.vercel.app/weekly" // <-- REPLACE WITH YOUR LINK LATER
         />
         <PricingCard 
           index={2}
           title="Monthly Elite" 
-          price="₹1,499" 
+          price="₹499" 
           period="30 Days" 
           desc="Enterprise access for analysts." 
-          features={['Unlimited query volume', 'Advanced server queues', 'Live threat data feeds']} 
-          link="#link-3-here" // <-- REPLACE WITH YOUR LINK LATER
+          features={['Unlimited lookups','Faster processing speeds', 'Priority customer support', 'Upto 5x Free Data Protection']} 
+          link="https://payuinew.vercel.app/monthly" // <-- REPLACE WITH YOUR LINK LATER
         />
         <PricingCard 
           index={3}
           title="Lifetime Pass" 
-          price="₹9,999" 
+          price="₹1,999" 
           period="Forever" 
           desc="Permanent platform access." 
-          features={['Permanent access', 'Zero recurring sub', 'VIP priority nodes']} 
-          link="#link-4-here" // <-- REPLACE WITH YOUR LINK LATER
+          features={['Own Custom Api access', 'Zero recurring sub', 'VIP priority nodes',  'Unlimited Free Data Protection', 'Custom Database']}
+          link="https://payuinew.vercel.app/lifetime" // <-- REPLACE WITH YOUR LINK LATER
         />
       </div>
     </div>
