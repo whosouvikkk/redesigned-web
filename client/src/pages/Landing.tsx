@@ -12,21 +12,35 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-[#030102] text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
       
-      {/* --- MOONWITCH ATMOSPHERIC BACKGROUND (ENHANCED INTENSITY) --- */}
+      {/* --- MOONWITCH ATMOSPHERIC BACKGROUND WITH PINKISH SHINE --- */}
       
-      {/* 1. The "Moon" Glow (Top Right) - Brighter & Wider */}
+      {/* 1. Subtle Shining Grid Texture */}
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ec489908_1px,transparent_1px),linear-gradient(to_bottom,#ec489908_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
+      {/* 2. Sweeping Pink Aurora (Shining Effect) */}
+      <motion.div 
+        animate={{ x: ['-20%', '20%', '-20%'], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-10%] left-0 right-0 h-[600px] bg-gradient-to-r from-pink-600/0 via-pink-500/10 to-rose-600/0 blur-[100px] pointer-events-none mix-blend-screen"
+      />
+
+      {/* 3. The "Moon" Glow (Top Right) */}
       <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-white/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
       
-      {/* 2. The "Floral Ground" Glow (Absolute Bottom) - Richer Crimson/Rose */}
+      {/* 4. The "Floral Ground" Glow (Absolute Bottom) */}
       <div className="absolute bottom-0 inset-x-0 h-[800px] bg-gradient-to-t from-rose-700/30 via-pink-900/15 to-transparent pointer-events-none mix-blend-screen" />
       
-      {/* 3. Deep Ambient Center Glow - More visible */}
-      <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-pink-600/15 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+      {/* 5. Deep Ambient Center Glow (Pulsing Core) */}
+      <motion.div 
+        animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.25, 0.15] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-pink-500/20 blur-[130px] rounded-full pointer-events-none mix-blend-screen" 
+      />
       
-      {/* 4. Cinematic Noise Overlay */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] pointer-events-none mix-blend-overlay z-0" />
+      {/* 6. Cinematic Noise Overlay */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay z-0" />
 
-      {/* 5. Floating Pink Leaves / Petals (Increased Density & Glow) */}
+      {/* 7. Floating Pink Leaves / Petals */}
       <FloatingPetals />
 
       <Navbar />
@@ -121,15 +135,14 @@ function FloatingPetals() {
   const [petals, setPetals] = useState<any[]>([]);
 
   useEffect(() => {
-    // Increased to 50 petals with highly saturated colors
     const vibrantColors = ['#ec4899', '#e11d48', '#be123c', '#fb7185'];
     
     const newPetals = Array.from({ length: 50 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100, 
-      duration: Math.random() * 12 + 8, // Slightly faster falling (8 to 20 seconds)
+      duration: Math.random() * 12 + 8, 
       delay: Math.random() * 10, 
-      size: Math.random() * 14 + 10, // Larger size (10px to 24px)
+      size: Math.random() * 14 + 10, 
       color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)], 
     }));
     setPetals(newPetals);
@@ -145,9 +158,9 @@ function FloatingPetals() {
           initial={{ y: -50, rotate: 0, opacity: 0 }}
           animate={{
             y: ['0vh', '110vh'],
-            x: [0, Math.random() * 150 - 75, Math.random() * 150 - 75], // Wider horizontal drift
-            rotate: [0, 360, 720], // Continuous spinning
-            opacity: [0, 1, 1, 0], // Reaches full opacity
+            x: [0, Math.random() * 150 - 75, Math.random() * 150 - 75], 
+            rotate: [0, 360, 720], 
+            opacity: [0, 1, 1, 0], 
           }}
           transition={{
             duration: petal.duration,
@@ -156,7 +169,6 @@ function FloatingPetals() {
             ease: "linear",
           }}
         >
-          {/* Petal SVG with intense glowing drop-shadow */}
           <svg width={petal.size} height={petal.size} viewBox="0 0 24 24" fill={petal.color} className="opacity-90 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">
             <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" opacity="0" />
             <path d="M12 2.25C8.5 2.25 2 6 2 12C2 17 8.5 21.75 12 21.75C15.5 21.75 22 17 22 12C22 6 15.5 2.25 12 2.25Z" />
