@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Search, History, CreditCard, LogOut, Shield, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Search, LogOut, Shield, ShieldCheck } from 'lucide-react';
 
 export default function Sidebar({ user }: { user?: any }) {
   const navigate = useNavigate();
@@ -37,8 +37,6 @@ export default function Sidebar({ user }: { user?: any }) {
         <nav className="space-y-1">
           <NavItem to="/dashboard" icon={<LayoutDashboard className="w-4 h-4" />} label="Overview" active={location.pathname === '/dashboard'} />
           <NavItem to="/dashboard/lookup" icon={<Search className="w-4 h-4" />} label="OSINT Lookup" active={location.pathname === '/dashboard/lookup'} />
-          <NavItem to="/dashboard/history" icon={<History className="w-4 h-4" />} label="Lookup History" active={location.pathname === '/dashboard/history'} />
-          <NavItem to="/dashboard/billing" icon={<CreditCard className="w-4 h-4" />} label="Billing & Plans" active={location.pathname === '/dashboard/billing'} />
           <NavItem to="/protected-data" icon={<ShieldCheck className="w-4 h-4" />} label="Data Removal" active={location.pathname === '/protected-data'} />
         </nav>
       </div>
