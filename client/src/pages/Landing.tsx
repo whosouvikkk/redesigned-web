@@ -11,33 +11,10 @@ import Footer from '../components/layout/Footer';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[#030102] text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-black text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
       
-      {/* --- BACKGROUND SHINE & ORB LIGHTING --- */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ec489908_1px,transparent_1px),linear-gradient(to_bottom,#ec489908_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
-
-      {/* Top Right Pink Glow */}
-      <motion.div 
-        animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-15%] right-[-5%] w-[600px] h-[600px] bg-pink-600 rounded-full mix-blend-screen filter blur-[140px] opacity-70 pointer-events-none"
-      />
-
-      {/* Bottom Left Rose Glow */}
-      <motion.div 
-        animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-[60%] left-[-15%] w-[700px] h-[700px] bg-rose-600 rounded-full mix-blend-screen filter blur-[150px] opacity-60 pointer-events-none"
-      />
-      
-      {/* Center Fuchsia Core */}
-      <motion.div 
-        animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.05, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[25%] left-[20%] w-[500px] h-[500px] bg-fuchsia-600 rounded-full mix-blend-screen filter blur-[160px] opacity-30 pointer-events-none" 
-      />
-
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
+      {/* --- NEW: 3D RADIATING BEAMS BACKGROUND (PINKISH EFFECT) --- */}
+      <RadiatingBeams />
 
       <Navbar />
 
@@ -85,7 +62,7 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      {/* 2. REAL LOOKUP EXAMPLES (WITH SCROLL ANIMATION) */}
+      {/* 2. REAL LOOKUP EXAMPLES */}
       <section className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -131,7 +108,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 4. RESTORED 4-TIER PRICING SECTION */}
+      {/* 4. 4-TIER PRICING SECTION */}
       <section id="pricing" className="py-32 px-6 max-w-7xl mx-auto z-10 relative">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -188,6 +165,47 @@ export default function Landing() {
 
 // --- REUSABLE COMPONENTS WITH ANIMATIONS ---
 
+/**
+ * NEW: 3D Radiating Beams Background
+ * Creates overlapping folded panels with sharp pink rim-lighting.
+ */
+function RadiatingBeams() {
+  const BEAM_COUNT = 24;
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none mix-blend-screen bg-black">
+      <motion.div 
+        animate={{ rotate: 360 }}
+        transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 flex items-center justify-center"
+      >
+        {Array.from({ length: BEAM_COUNT }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute origin-left"
+            style={{
+              width: '150vmax',
+              height: '40px',
+              left: '50%',
+              top: '50%',
+              rotate: `${(360 / BEAM_COUNT) * i}deg`,
+              // This specific gradient creates the 3D folded metal/glass panel look with a sharp pink/white edge
+              background: 'linear-gradient(to bottom, #000 0%, #000 35%, rgba(236,72,153,0.6) 48%, #fff 50%, rgba(236,72,153,0.3) 52%, #000 65%, #000 100%)',
+              opacity: 0.8,
+            }}
+          />
+        ))}
+      </motion.div>
+      
+      {/* Radial vignette to fade the center (like the reference image) and edges into black */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#000_5%,transparent_30%,#000_80%)]" />
+      
+      {/* Background grain texture for the entire page to give it that tactile frosted look */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+    </div>
+  );
+}
+
 function TypewriterEffect({ words }: { words: string[] }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -213,7 +231,7 @@ function TypewriterEffect({ words }: { words: string[] }) {
 
   return (
     <span className="inline-block relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+      <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-lg">
         {currentText}
       </span>
       <span className="text-pink-500 animate-[pulse_1s_ease-in-out_infinite] ml-2 font-light">|</span>
@@ -228,8 +246,11 @@ function SampleCard({ icon, title, subtitle, data, index }: { icon: React.ReactN
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white/[0.02] backdrop-blur-[40px] border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.5)] p-6 rounded-[2rem] hover:bg-white/[0.04] transition-all duration-500 group relative"
+      className="bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.8)] p-6 rounded-[2rem] hover:bg-white/[0.02] transition-all duration-500 group relative overflow-hidden"
     >
+      {/* Inner noise layer specifically for the card to match the heavy frosted glass reference */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
+      
       <div className="flex items-center gap-4 mb-6 relative z-10">
         <div className="p-3 bg-white/[0.05] rounded-2xl text-gray-300 group-hover:text-pink-400 group-hover:bg-pink-500/10 transition-colors shadow-inner">
           {icon}
@@ -258,13 +279,17 @@ function BenefitBox({ title, desc, index }: { title: string; desc: string; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white/[0.02] backdrop-blur-[40px] border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] p-6 rounded-[2rem] hover:bg-white/[0.04] transition-all duration-300 group"
+      className="bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] p-6 rounded-[2rem] hover:bg-white/[0.02] transition-all duration-300 group relative overflow-hidden"
     >
-      <div className="mb-4 p-2.5 bg-white/5 w-fit rounded-xl text-gray-400 group-hover:text-pink-400 transition-colors">
-        <Check className="w-5 h-5" />
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
+      
+      <div className="relative z-10">
+        <div className="mb-4 p-2.5 bg-white/5 w-fit rounded-xl text-gray-400 group-hover:text-pink-400 transition-colors">
+          <Check className="w-5 h-5" />
+        </div>
+        <h3 className="text-base font-semibold text-white mb-2">{title}</h3>
+        <p className="text-sm text-gray-400 leading-relaxed font-light">{desc}</p>
       </div>
-      <h3 className="text-base font-semibold text-white mb-2">{title}</h3>
-      <p className="text-sm text-gray-400 leading-relaxed font-light">{desc}</p>
     </motion.div>
   );
 }
@@ -276,15 +301,17 @@ function PricingCard({ title, price, period, desc, features, popular, index }: {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`bg-white/[0.02] backdrop-blur-[40px] transition-all duration-500 min-h-[480px] flex flex-col justify-between p-8 rounded-[2rem] relative group ${popular ? 'border border-pink-500/50 shadow-[0_0_50px_rgba(236,72,153,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)] z-10 scale-105' : 'border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.4)] hover:bg-white/[0.04]'}`}
+      className={`bg-black/40 backdrop-blur-2xl transition-all duration-500 min-h-[480px] flex flex-col justify-between p-8 rounded-[2rem] relative group overflow-hidden ${popular ? 'border border-pink-500/50 shadow-[0_0_50px_rgba(236,72,153,0.15),inset_0_1px_1px_rgba(255,255,255,0.3)] z-10 scale-105' : 'border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.8)] hover:bg-white/[0.04]'}`}
     >
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
+
       {popular && (
-        <span className="absolute top-4 right-6 bg-pink-500/20 text-pink-400 text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-bold border border-pink-500/30">
+        <span className="absolute top-4 right-6 bg-pink-500/20 text-pink-400 text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-bold border border-pink-500/30 z-10">
           Popular
         </span>
       )}
 
-      <div className="flex-1">
+      <div className="flex-1 relative z-10">
         <h3 className="text-xl font-medium text-white tracking-tight mb-2">{title}</h3>
         <p className="text-xs text-gray-400 font-light leading-relaxed mb-6 pr-4">{desc}</p>
         
@@ -304,7 +331,7 @@ function PricingCard({ title, price, period, desc, features, popular, index }: {
         </div>
       </div>
 
-      <Link to="/login" className={`mt-8 w-full py-3.5 rounded-full font-semibold text-xs text-center transition-all duration-300 ${popular ? 'bg-white text-black hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'bg-white/10 text-white hover:bg-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'}`}>
+      <Link to="/login" className={`mt-8 w-full py-3.5 rounded-full font-semibold text-xs text-center transition-all duration-300 relative z-10 ${popular ? 'bg-white text-black hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'bg-white/10 text-white hover:bg-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'}`}>
         Choose Plan
       </Link>
     </motion.div>
