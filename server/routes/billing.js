@@ -1,33 +1,47 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 const auth = require('../middleware/auth');
 const User = require('../models/User');
 
-router.post('/purchase', auth, async (req, res) => {
-  const { planType } = req.body;
-  const user = await User.findById(req.user.id);
+router.post('/submit-payment', auth, async (req, res) => {
+  const { planId, username, utr } = req.body;
 
-  if (!user) return res.status(404).json({ error: 'User not found' });
-
-  if (planType === 'credits_25') user.credits += 25;
-  if (planType === 'credits_100') user.credits += 100;
-  if (planType === 'credits_250') user.credits += 250;
-  
-  if (planType === 'weekly') {
-    user.subscription = 'weekly';
-    user.subscriptionExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  }
-  if (planType === 'monthly') {
-    user.subscription = 'monthly';
-    user.subscriptionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-  }
-  if (planType === 'lifetime') {
-    user.subscription = 'lifetime';
-    user.subscriptionExpiry = null;
+  // Extra safety backend validation
+  if (!utr || utr.length <= 4) {
+    return res.status(400).json({ error: 'UTR / Transaction ID must be more than 4 digits.' });
   }
 
-  await user.save();
-  res.json({ success: true, user: { credits: user.credits, subscription: user.subscription, subscriptionExpiry: user.subscriptionExpiry } });
+  // Ensure webhook exists in Vercel settings
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.error("Missing DISCORD_WEBHOOK_URL environment variable");
+    return res.status(500).json({ error: 'System error: Webhook not configured by admin.' });
+  }
+
+  try {
+    // Format a nice embed-style message for Discord
+    const discordMessage = {
+      content: "🔔 **New Payment Verification Request**",
+      embeds: [{
+        title: "Transaction Details",
+        color: 15418782, // A nice pink color
+        fields: [
+          { name: "👤 Username", value: `\`${username}\``, inline: true },
+          { name: "📦 Requested Plan", value: `\`${planId}\``, inline: true },
+          { name: "💳 UTR / Trans ID", value: `\`${utr}\``, inline: false },
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    await axios.post(webhookUrl, discordMessage);
+    
+    return res.json({ success: true, message: 'Payment submitted successfully.' });
+  } catch (error) {
+    console.error("Discord Webhook Error:", error);
+    return res.status(500).json({ error: 'Failed to process payment request. Please try again.' });
+  }
 });
 
 module.exports = router;
