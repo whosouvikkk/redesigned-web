@@ -146,8 +146,8 @@ export default function Landing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tighter">Transparent Pricing</h2>
-          <p className="text-gray-400 text-lg font-light">Scale your operations with flexible access tiers.</p>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tighter">Pricing & Access</h2>
+          <p className="text-gray-400 text-lg font-light">Whether you're an individual researcher or a security team, there's a plan for you.</p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -155,34 +155,34 @@ export default function Landing() {
             index={0}
             title="Pay As You Go" 
             price="₹50" 
-            period="25 Credits" 
+            period="20 Credits" 
             desc="Minimum buy 20 credits." 
             features={['Full API access', 'Lifetime credit validity', 'JSON Export capabilities']} 
           />
           <PricingCard 
             index={1}
-            title="Weekly Pro" 
-            price="₹499" 
+            title="Weekly Access" 
+            price="₹149" 
             period="7 Days" 
             desc="Unlimited short investigations." 
             popular 
-            features={['Unlimited lookups', 'Bypass credit logic', 'Priority premium badge']} 
+            features={['Unlimited lookups', 'Bypass credit logic', 'Priority lookup queue']} 
           />
           <PricingCard 
             index={2}
-            title="Monthly Elite" 
-            price="₹1,499" 
+            title="Monthly Access" 
+            price="₹499" 
             period="30 Days" 
             desc="Enterprise access for analysts." 
-            features={['Unlimited query volume', 'Advanced server queues', 'Live threat data feeds']} 
+            features={['Unlimited lookups','Faster processing speeds', 'Priority customer support', 'Free Data Protection']} 
           />
           <PricingCard 
             index={3}
-            title="Lifetime Pass" 
-            price="₹9,999" 
+            title="Lifetime Access" 
+            price="₹1,999" 
             period="Forever" 
             desc="Permanent platform access." 
-            features={['Permanent access', 'Zero recurring sub', 'VIP priority nodes']} 
+            features={['Own Custom Api access', 'Zero recurring sub', 'VIP priority nodes']} 
           />
         </div>
       </section>
