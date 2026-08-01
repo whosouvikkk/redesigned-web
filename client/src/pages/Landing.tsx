@@ -12,21 +12,21 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-[#030102] text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
       
-      {/* --- MOONWITCH ATMOSPHERIC BACKGROUND --- */}
+      {/* --- MOONWITCH ATMOSPHERIC BACKGROUND (ENHANCED INTENSITY) --- */}
       
-      {/* 1. The "Moon" Glow (Top Right) */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-white/5 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+      {/* 1. The "Moon" Glow (Top Right) - Brighter & Wider */}
+      <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-white/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
       
-      {/* 2. The "Floral Ground" Glow (Absolute Bottom) */}
-      <div className="absolute bottom-0 inset-x-0 h-[800px] bg-gradient-to-t from-rose-900/20 via-pink-900/5 to-transparent pointer-events-none" />
+      {/* 2. The "Floral Ground" Glow (Absolute Bottom) - Richer Crimson/Rose */}
+      <div className="absolute bottom-0 inset-x-0 h-[800px] bg-gradient-to-t from-rose-700/30 via-pink-900/15 to-transparent pointer-events-none mix-blend-screen" />
       
-      {/* 3. Deep Ambient Center Glow */}
-      <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-pink-600/10 blur-[150px] rounded-full pointer-events-none" />
+      {/* 3. Deep Ambient Center Glow - More visible */}
+      <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-pink-600/15 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
       
       {/* 4. Cinematic Noise Overlay */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] pointer-events-none mix-blend-overlay z-0" />
 
-      {/* 5. Floating Pink Leaves / Petals */}
+      {/* 5. Floating Pink Leaves / Petals (Increased Density & Glow) */}
       <FloatingPetals />
 
       <Navbar />
@@ -35,8 +35,8 @@ export default function Landing() {
       <section className="relative pt-40 pb-20 px-6 max-w-7xl mx-auto text-center flex flex-col items-center z-10">
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
           
-          <div className="mx-auto w-fit px-4 py-1.5 rounded-full border border-pink-500/20 bg-pink-500/[0.03] text-pink-300 text-xs font-medium tracking-wide mb-8 backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_rgba(236,72,153,0.1)]">
-            <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse shadow-[0_0_8px_rgba(236,72,153,0.8)]" />
+          <div className="mx-auto w-fit px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/[0.05] text-pink-300 text-xs font-medium tracking-wide mb-8 backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
+            <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.9)]" />
             MoonWitch OSINT Engine v4.2
           </div>
           
@@ -49,11 +49,11 @@ export default function Landing() {
             An enterprise-grade intelligence platform. Recover information from public databases instantly, verify identities, and evaluate risk footprints securely.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/login" className="px-8 py-3.5 bg-white text-black hover:bg-pink-100 rounded-full font-semibold inline-flex items-center gap-2 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(236,72,153,0.4)]">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
+            <Link to="/login" className="px-8 py-3.5 bg-white text-black hover:bg-pink-100 rounded-full font-semibold inline-flex items-center gap-2 transition-colors shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)]">
               Start Analysis <ArrowRight className="w-4 h-4" />
             </Link>
-            <a href="#pricing" className="px-8 py-3.5 bg-black/50 backdrop-blur-md border border-white/10 hover:border-pink-500/50 hover:bg-white/[0.05] rounded-full font-medium transition-colors text-white">
+            <a href="#pricing" className="px-8 py-3.5 bg-black/50 backdrop-blur-md border border-white/20 hover:border-pink-500/60 hover:bg-white/[0.08] rounded-full font-medium transition-colors text-white">
               View Pricing
             </a>
           </div>
@@ -96,7 +96,7 @@ export default function Landing() {
       </section>
 
       {/* 4. PRICING SECTION */}
-      <section id="pricing" className="py-24 px-6 max-w-7xl mx-auto z-10 relative border-t border-pink-900/30 bg-black/40 backdrop-blur-sm">
+      <section id="pricing" className="py-24 px-6 max-w-7xl mx-auto z-10 relative border-t border-pink-900/40 bg-black/60 backdrop-blur-md">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Transparent Pricing</h2>
           <p className="text-gray-400">Scale your operations with flexible access tiers.</p>
@@ -121,14 +121,16 @@ function FloatingPetals() {
   const [petals, setPetals] = useState<any[]>([]);
 
   useEffect(() => {
-    // Generate 25 random petals
-    const newPetals = Array.from({ length: 25 }).map((_, i) => ({
+    // Increased to 50 petals with highly saturated colors
+    const vibrantColors = ['#ec4899', '#e11d48', '#be123c', '#fb7185'];
+    
+    const newPetals = Array.from({ length: 50 }).map((_, i) => ({
       id: i,
-      left: Math.random() * 100, // Random horizontal start (0-100%)
-      duration: Math.random() * 15 + 10, // Fall speed (10-25s)
-      delay: Math.random() * 15, // Stagger start times
-      size: Math.random() * 10 + 8, // Size between 8px and 18px
-      color: Math.random() > 0.5 ? '#ec4899' : '#be123c', // Mix of pink and rose
+      left: Math.random() * 100, 
+      duration: Math.random() * 12 + 8, // Slightly faster falling (8 to 20 seconds)
+      delay: Math.random() * 10, 
+      size: Math.random() * 14 + 10, // Larger size (10px to 24px)
+      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)], 
     }));
     setPetals(newPetals);
   }, []);
@@ -143,9 +145,9 @@ function FloatingPetals() {
           initial={{ y: -50, rotate: 0, opacity: 0 }}
           animate={{
             y: ['0vh', '110vh'],
-            x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50], // Drift left/right
-            rotate: [0, 180, 360], // Spin slightly
-            opacity: [0, 0.8, 0.8, 0], // Fade in, stay, fade out at bottom
+            x: [0, Math.random() * 150 - 75, Math.random() * 150 - 75], // Wider horizontal drift
+            rotate: [0, 360, 720], // Continuous spinning
+            opacity: [0, 1, 1, 0], // Reaches full opacity
           }}
           transition={{
             duration: petal.duration,
@@ -154,8 +156,8 @@ function FloatingPetals() {
             ease: "linear",
           }}
         >
-          {/* Simple Leaf/Petal SVG */}
-          <svg width={petal.size} height={petal.size} viewBox="0 0 24 24" fill={petal.color} className="opacity-40 drop-shadow-[0_0_5px_rgba(236,72,153,0.5)]">
+          {/* Petal SVG with intense glowing drop-shadow */}
+          <svg width={petal.size} height={petal.size} viewBox="0 0 24 24" fill={petal.color} className="opacity-90 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">
             <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" opacity="0" />
             <path d="M12 2.25C8.5 2.25 2 6 2 12C2 17 8.5 21.75 12 21.75C15.5 21.75 22 17 22 12C22 6 15.5 2.25 12 2.25Z" />
           </svg>
@@ -190,7 +192,7 @@ function TypewriterEffect({ words }: { words: string[] }) {
 
   return (
     <span className="inline-block relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.2)]">
+      <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.3)]">
         {currentText}
       </span>
       <span className="text-pink-500 animate-pulse ml-1 font-light">|</span>
@@ -200,8 +202,8 @@ function TypewriterEffect({ words }: { words: string[] }) {
 
 function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; title: string; subtitle: string; data: { label: string; value: string }[] }) {
   return (
-    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/30 transition-all duration-300 group relative overflow-hidden shadow-lg">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/0 group-hover:bg-pink-500/10 blur-[40px] transition-colors" />
+    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/40 transition-all duration-300 group relative overflow-hidden shadow-lg">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/0 group-hover:bg-pink-500/15 blur-[40px] transition-colors" />
       <div className="flex items-center gap-4 mb-6 relative z-10">
         <div className="text-gray-400 group-hover:text-pink-400 transition-colors">{icon}</div>
         <div>
@@ -223,7 +225,7 @@ function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; ti
 
 function BenefitBox({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/30 transition-colors group shadow-lg">
+    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/40 transition-colors group shadow-lg">
       <div className="mb-4 text-gray-500 group-hover:text-pink-400 transition-colors">
         <Check className="w-5 h-5" />
       </div>
@@ -235,12 +237,12 @@ function BenefitBox({ title, desc }: { title: string; desc: string }) {
 
 function PricingCard({ title, price, period, desc, features, popular }: { title: string; price: string; period: string; desc: string; features: string[]; popular?: boolean }) {
   return (
-    <div className={`bg-[#050304]/90 backdrop-blur-xl border transition-all duration-300 min-h-[460px] flex flex-col justify-between ${popular ? 'border-pink-500/50 shadow-[0_0_30px_rgba(236,72,153,0.15)] relative z-10' : 'border-white/10 hover:border-pink-500/30'} p-8 rounded-3xl relative overflow-hidden`}>
+    <div className={`bg-[#050304]/90 backdrop-blur-xl border transition-all duration-300 min-h-[460px] flex flex-col justify-between ${popular ? 'border-pink-500/70 shadow-[0_0_40px_rgba(236,72,153,0.2)] relative z-10' : 'border-white/10 hover:border-pink-500/40'} p-8 rounded-3xl relative overflow-hidden`}>
       {popular && <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-pink-500 to-rose-500" />}
       <div className="flex-1">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-white">{title}</h3>
-          {popular && <span className="bg-pink-500/10 text-pink-400 text-[10px] px-2 py-1 rounded-full uppercase tracking-widest font-bold border border-pink-500/20">Popular</span>}
+          {popular && <span className="bg-pink-500/20 text-pink-400 text-[10px] px-2 py-1 rounded-full uppercase tracking-widest font-bold border border-pink-500/30">Popular</span>}
         </div>
         <p className="text-xs text-gray-500 mb-6">{desc}</p>
         <div className="text-4xl font-bold text-white mb-1 tracking-tight drop-shadow-md">{price} <span className="text-sm font-normal text-gray-500 tracking-normal">/ {period}</span></div>
@@ -253,7 +255,7 @@ function PricingCard({ title, price, period, desc, features, popular }: { title:
           ))}
         </div>
       </div>
-      <Link to="/login" className={`mt-8 w-full py-3 rounded-xl font-medium text-sm text-center transition-all duration-300 ${popular ? 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.3)]' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}`}>
+      <Link to="/login" className={`mt-8 w-full py-3 rounded-xl font-medium text-sm text-center transition-all duration-300 ${popular ? 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.4)]' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}`}>
         Choose Plan
       </Link>
     </div>
