@@ -82,28 +82,28 @@ export default function Landing() {
             index={0} 
             icon={<Smartphone />} 
             title="Number Lookup" 
-            subtitle="Telecom & Demographics Schema" 
-            jsonString={`{\n  "mobile": "",\n  "name": "",\n  "address": "",\n  "circle": "",\n  "alt": "",\n  "fname": "",\n  "id": "",\n  "email": "",\n  "truecaller_name": ""\n}`}
+            subtitle="Telecom & Demographics Extraction" 
+            jsonString={`{\n  "mobile": "",\n  "name": "",\n  "address": "",\n  "circle": "",\n  "alt": "",\n  "fname": "",\n  "aadhaar": "",\n  "email": "",\n  "truecaller_name": ""\n}`}
           />
           <SampleCard 
             index={1} 
             icon={<ShieldCheck />} 
             title="Aadhaar Intelligence" 
-            subtitle="Identity Verification Schema" 
+            subtitle="Identity Extraction" 
             jsonString={`{\n  "mobile": "",\n  "name": "",\n  "father_name": "",\n  "address": "",\n  "alternate": "",\n  "circle": "",\n  "aadhar": "",\n  "email": ""\n}`}
           />
           <SampleCard 
             index={2} 
             icon={<Car />} 
             title="Vehicle Lookup" 
-            subtitle="RTO & Ownership Schema" 
+            subtitle="RTO & Ownership Details Extraction" 
             jsonString={`{\n  "address": {\n    "city": "",\n    "permanent": "",\n    "pincode": "",\n    "present": ""\n  },\n  "": "",\n  "": {\n    "name": ""\n  },\n  "owner": {\n    "father_name": "",\n    "name": ""\n  },\n  "puc": {\n    "no": "",\n    "valid_upto": ""\n  },\n  "registration": {\n    "authority": "",\n    "date": "",\n    "rto": "",\n    "rto_code": ""\n  },\n  "registration_number": "",\n  "response_time": 4.78,\n  "rto_contact": {\n    "phone": "(+91)"\n  },\n  "success": true,\n  "vehicle": {\n    "cc": ,\n    "class": "",\n    "commercial": ,\n    "fuel": "",\n    "fuel_norms": "",\n    "maker_model": "",\n    "manufacturer": "",\n    "model": "",\n    "seating": ,\n    "type": "",\n    "variant": ""\n  },\n  "insurance": {\n    "company": "",\n    "expired": ,\n    "policy_no": "",\n    "valid_upto": ""\n  }\n}`}
           />
           <SampleCard 
             index={3} 
             icon={<Key />} 
             title="Vehicle to Number" 
-            subtitle="Contact Extraction Schema" 
+            subtitle="Contact Number Extraction" 
             jsonString={`{\n  "vehicle": "",\n  "chassis_number": "",\n  "engine_number": "",\n  "mobile_number": ""\n}`}
           />
           <SampleCard 
@@ -111,7 +111,7 @@ export default function Landing() {
             icon={<Crosshair />} 
             title="Bomber Module" 
             subtitle="Automated Sms Spammer " 
-            jsonString={`{\n  "rounds": 1,\n  "target": ""\n}`}
+            jsonString={`{\n  "rounds": ,\n  "target": ""\n}`}
           />
         </div>
       </section>
@@ -125,15 +125,15 @@ export default function Landing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">Enterprise Capabilities</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto font-light text-lg">Designed for threat analysts, independent researchers, and security teams.</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">Investigation Capabilities</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto font-light text-lg">Designed for investigators, cybersecurity professionals, journalists, threat analysts, and security teams.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <BenefitBox index={0} title="Scam Identification" desc="Identify suspicious numbers and VPAs before transferring funds." />
-          <BenefitBox index={1} title="Vehicle Verification" desc="Verify ownership and registration specs for peer-to-peer purchases." />
-          <BenefitBox index={2} title="Identity Validation" desc="Confirm identity parameters against databases to prevent fraud." />
-          <BenefitBox index={3} title="Cyber Awareness" desc="Research publicly exposed risk footprints to audit personal exposure." />
+          <BenefitBox index={0} title="Scam Identification" desc="Analyze phone numbers, payment IDs, and digital footprints to identify potential fraud before engaging." />
+          <BenefitBox index={1} title="Threat Intelligence" desc="Correlate publicly available information to uncover infrastructure, aliases, and online activity." />
+          <BenefitBox index={2} title="Digital Investigations" desc="Accelerate investigations by connecting identities, vehicles, contact details, and public records." />
+          <BenefitBox index={3} title="Risk Assessment" desc="Evaluate individuals, businesses, and online entities using publicly available intelligence sources." />
         </div>
       </section>
 
