@@ -7,6 +7,8 @@ import ProtectedData from './pages/ProtectedData';
 import DashboardLayout from './pages/Dashboard/DashboardLayout';
 import Overview from './pages/Dashboard/Overview';
 import Lookup from './pages/Dashboard/Lookup';
+import Billing from './pages/Dashboard/Billing';
+import Checkout from './pages/Dashboard/Checkout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 
 export default function App() {
@@ -18,13 +20,13 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/protected-data" element={<ProtectedData />} />
         
-        {/* Dashboard Routes - History and Billing Removed */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Overview />} />
           <Route path="lookup" element={<Lookup />} />
+          <Route path="billing" element={<Billing />} />
+          <Route path="checkout/:planId" element={<Checkout />} />
         </Route>
 
-        {/* Admin Route */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
