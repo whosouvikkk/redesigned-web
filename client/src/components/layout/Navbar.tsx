@@ -1,22 +1,41 @@
-import React from 'react';
-import { Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Menu, User, LogOut } from 'lucide-react'; // Assuming you use lucide-react for UI icons
 
-export default function Navbar() {
+export default function Navbar({ toggleSidebar }: { toggleSidebar?: () => void }) {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-border px-6 py-4">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-wider">
-          <Shield className="text-pink-500 w-6 h-6" />
-          <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
+    <nav className="bg-[#12101a] border-b border-gray-800/60 h-16 flex items-center justify-between px-4 lg:px-8">
+      {/* Left side: Mobile Menu Toggle & Branding */}
+      <div className="flex items-center gap-4">
+        {toggleSidebar && (
+          <button 
+            onClick={toggleSidebar} 
+            className="lg:hidden text-gray-400 hover:text-pink-500 transition-colors"
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+        )}
+        
+        {/* NEW BRANDING: witch.png and text */}
+        <Link to="/" className="flex items-center gap-3">
+          <img 
+            src="/witch.png" 
+            alt="MoonWitch Logo" 
+            className="h-8 w-8 object-contain" 
+          />
+          <span className="font-bold text-xl tracking-wider text-white">
+            MOONWITCH
+          </span>
         </Link>
-        <div className="flex items-center gap-4">
-          <Link to="/protected-data" className="text-sm text-gray-400 hover:text-pink-400 transition-colors">Protect Data</Link>
-          <Link to="/login" className="text-sm font-medium hover:text-pink-400 transition-colors">Sign In</Link>
-          <Link to="/login" className="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-sm font-medium rounded-lg transition-all shadow-[0_0_15px_rgba(236,72,153,0.3)]">
-            Initialize
-          </Link>
-        </div>
+      </div>
+
+      {/* Right side: User Profile & Actions */}
+      <div className="flex items-center gap-4">
+        <button className="text-gray-400 hover:text-pink-500 transition-colors">
+          <User className="h-5 w-5" />
+        </button>
+        <button className="text-gray-400 hover:text-pink-500 transition-colors">
+          <LogOut className="h-5 w-5" />
+        </button>
       </div>
     </nav>
   );
