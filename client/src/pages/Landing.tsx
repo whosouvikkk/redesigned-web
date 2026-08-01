@@ -10,64 +10,62 @@ import Footer from '../components/layout/Footer';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[#030102] text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-black text-gray-200 selection:bg-pink-500/30 selection:text-white relative overflow-hidden font-sans">
       
-      {/* --- MOONWITCH ATMOSPHERIC BACKGROUND WITH PINKISH SHINE --- */}
+      {/* --- PREMIUM GLASSMORPHISM & ORB BACKGROUND --- */}
       
-      {/* 1. Subtle Shining Grid Texture */}
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ec489908_1px,transparent_1px),linear-gradient(to_bottom,#ec489908_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
-
-      {/* 2. Sweeping Pink Aurora (Shining Effect) */}
+      {/* Orb 1: Top Right (Main Highlight) */}
       <motion.div 
-        animate={{ x: ['-20%', '20%', '-20%'], opacity: [0.15, 0.25, 0.15] }}
+        animate={{ x: [0, -30, 0], y: [0, 40, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-0 right-0 h-[600px] bg-gradient-to-r from-pink-600/0 via-pink-500/10 to-rose-600/0 blur-[100px] pointer-events-none mix-blend-screen"
+        className="absolute top-[-15%] right-[-5%] w-[600px] h-[600px] bg-pink-600 rounded-full mix-blend-screen filter blur-[140px] opacity-80 pointer-events-none"
       />
 
-      {/* 3. The "Moon" Glow (Top Right) */}
-      <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] bg-white/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen" />
-      
-      {/* 4. The "Floral Ground" Glow (Absolute Bottom) */}
-      <div className="absolute bottom-0 inset-x-0 h-[800px] bg-gradient-to-t from-rose-700/30 via-pink-900/15 to-transparent pointer-events-none mix-blend-screen" />
-      
-      {/* 5. Deep Ambient Center Glow (Pulsing Core) */}
+      {/* Orb 2: Bottom Left (Sweeping Under Pricing) */}
       <motion.div 
-        animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.25, 0.15] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-pink-500/20 blur-[130px] rounded-full pointer-events-none mix-blend-screen" 
+        animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute top-[60%] left-[-15%] w-[700px] h-[700px] bg-rose-600 rounded-full mix-blend-screen filter blur-[150px] opacity-70 pointer-events-none"
       />
       
-      {/* 6. Cinematic Noise Overlay */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] pointer-events-none mix-blend-overlay z-0" />
+      {/* Orb 3: Center Deep Fuchsia Core */}
+      <motion.div 
+        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.05, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[25%] left-[20%] w-[500px] h-[500px] bg-fuchsia-600 rounded-full mix-blend-screen filter blur-[160px] opacity-40 pointer-events-none" 
+      />
 
-      {/* 7. Floating Pink Leaves / Petals */}
-      <FloatingPetals />
+      {/* Subtle Noise for texture (kept very faint so it doesn't ruin the glass look) */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
 
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-40 pb-20 px-6 max-w-7xl mx-auto text-center flex flex-col items-center z-10">
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="w-full">
+      <section className="relative pt-40 pb-24 px-6 max-w-7xl mx-auto text-center flex flex-col items-center z-10">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="w-full">
           
-          <div className="mx-auto w-fit px-4 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/[0.05] text-pink-300 text-xs font-medium tracking-wide mb-8 backdrop-blur-md flex items-center gap-2 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse shadow-[0_0_10px_rgba(236,72,153,0.9)]" />
+          <div className="mx-auto w-fit px-5 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-xl text-gray-300 text-xs font-semibold tracking-wide mb-8 flex items-center gap-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-pink-500"></span>
+            </span>
             MoonWitch OSINT Engine v4.2
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl mx-auto leading-[1.1] text-white h-[120px] md:h-[160px]">
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-6 max-w-5xl mx-auto leading-[1.05] text-white drop-shadow-2xl">
             Intelligence <br />
             <TypewriterEffect words={['Beyond Search.', 'In Real-Time.', 'Without Limits.', 'At Scale.']} />
           </h1>
           
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed mt-4 drop-shadow-md">
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light">
             An enterprise-grade intelligence platform. Recover information from public databases instantly, verify identities, and evaluate risk footprints securely.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
-            <Link to="/login" className="px-8 py-3.5 bg-white text-black hover:bg-pink-100 rounded-full font-semibold inline-flex items-center gap-2 transition-colors shadow-[0_0_25px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)]">
-              Start Analysis <ArrowRight className="w-4 h-4" />
+            <Link to="/login" className="px-8 py-4 bg-white text-black hover:bg-gray-100 rounded-full font-bold inline-flex items-center gap-2 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(236,72,153,0.4)] hover:scale-105">
+              Start Analysis <ArrowRight className="w-5 h-5" />
             </Link>
-            <a href="#pricing" className="px-8 py-3.5 bg-black/50 backdrop-blur-md border border-white/20 hover:border-pink-500/60 hover:bg-white/[0.08] rounded-full font-medium transition-colors text-white">
+            <a href="#pricing" className="px-8 py-4 bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-white/20 hover:bg-white/[0.08] rounded-full font-semibold transition-all text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
               View Pricing
             </a>
           </div>
@@ -75,12 +73,12 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      {/* 2. REAL LOOKUP EXAMPLES */}
-      <section className="py-24 px-6 max-w-7xl mx-auto z-10 relative border-t border-white/5 bg-gradient-to-b from-transparent to-black/50">
+      {/* 2. REAL LOOKUP EXAMPLES (GLASS CARDS) */}
+      <section className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
         <div className="mb-16 md:flex justify-between items-end">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Live Intelligence Vectors</h2>
-            <p className="text-gray-400">Sample sanitized payloads generated by our backend cleaner. Instant resolution across multiple data nodes.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">Live Intelligence Vectors</h2>
+            <p className="text-gray-400 font-light text-lg">Sample sanitized payloads generated by our backend cleaner. Instant resolution across multiple data nodes.</p>
           </div>
         </div>
 
@@ -94,33 +92,36 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 3. USE CASES & BENEFITS */}
-      <section className="py-24 px-6 max-w-7xl mx-auto z-10 relative">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Enterprise Capabilities</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">Designed for threat analysts, independent researchers, and security teams.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <BenefitBox title="Scam Identification" desc="Identify suspicious numbers and VPAs before transferring funds." />
-          <BenefitBox title="Vehicle Verification" desc="Verify ownership and registration specs for peer-to-peer purchases." />
-          <BenefitBox title="Identity Validation" desc="Confirm identity parameters against databases to prevent fraud." />
-          <BenefitBox title="Cyber Awareness" desc="Research publicly exposed risk footprints to audit personal exposure." />
-        </div>
-      </section>
-
-      {/* 4. PRICING SECTION */}
-      <section id="pricing" className="py-24 px-6 max-w-7xl mx-auto z-10 relative border-t border-pink-900/40 bg-black/60 backdrop-blur-md">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white tracking-tight">Transparent Pricing</h2>
-          <p className="text-gray-400">Scale your operations with flexible access tiers.</p>
+      {/* 3. PRICING SECTION (GLASS CARDS ALIGNED WITH REFERENCE IMAGE) */}
+      <section id="pricing" className="py-32 px-6 max-w-7xl mx-auto z-10 relative">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white tracking-tighter">Transparent Pricing</h2>
+          <p className="text-gray-400 text-lg font-light">Scale your operations with flexible, high-tier access.</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          <PricingCard title="Pay As You Go" price="₹50" period="25 Credits" desc="Minimum buy 20 credits." features={['Full API access', 'Lifetime validity', 'JSON Export']} />
-          <PricingCard title="Weekly Pro" price="₹499" period="7 Days" desc="Unlimited short investigations." popular features={['Unlimited lookups', 'Bypass credit logic', 'Premium badge']} />
-          <PricingCard title="Monthly Elite" price="₹1,499" period="30 Days" desc="Enterprise access for analysts." features={['Unlimited volume', 'Advanced queues', 'Threat feeds']} />
-          <PricingCard title="Lifetime Pass" price="₹9,999" period="Forever" desc="Permanent platform access." features={['Permanent access', 'Zero recurring sub', 'VIP nodes']} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-5xl mx-auto">
+          <PricingCard 
+            title="Pay As You Go" 
+            price="₹50" 
+            period="/ 25 Credits" 
+            desc="For researchers taking their first steps with OSINT." 
+            features={['Full API access', 'Lifetime credit validity', 'JSON Export capabilities']} 
+          />
+          <PricingCard 
+            title="Weekly Pro" 
+            price="₹499" 
+            period="/ week" 
+            desc="For freelancers and small teams who need more freedom." 
+            features={['Unlimited lookups', 'Bypass credit logic', 'Priority premium badge']} 
+          />
+          <PricingCard 
+            title="Monthly Elite" 
+            price="₹1,499" 
+            period="/ month" 
+            desc="For agencies and professional analysts working at scale." 
+            features={['Unlimited query volume', 'Advanced server queues', 'Live threat data feeds']} 
+            popular 
+          />
         </div>
       </section>
 
@@ -131,54 +132,6 @@ export default function Landing() {
 
 // --- REUSABLE COMPONENTS ---
 
-function FloatingPetals() {
-  const [petals, setPetals] = useState<any[]>([]);
-
-  useEffect(() => {
-    const vibrantColors = ['#ec4899', '#e11d48', '#be123c', '#fb7185'];
-    
-    const newPetals = Array.from({ length: 50 }).map((_, i) => ({
-      id: i,
-      left: Math.random() * 100, 
-      duration: Math.random() * 12 + 8, 
-      delay: Math.random() * 10, 
-      size: Math.random() * 14 + 10, 
-      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)], 
-    }));
-    setPetals(newPetals);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {petals.map((petal) => (
-        <motion.div
-          key={petal.id}
-          className="absolute top-[-5%]"
-          style={{ left: `${petal.left}%` }}
-          initial={{ y: -50, rotate: 0, opacity: 0 }}
-          animate={{
-            y: ['0vh', '110vh'],
-            x: [0, Math.random() * 150 - 75, Math.random() * 150 - 75], 
-            rotate: [0, 360, 720], 
-            opacity: [0, 1, 1, 0], 
-          }}
-          transition={{
-            duration: petal.duration,
-            delay: petal.delay,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          <svg width={petal.size} height={petal.size} viewBox="0 0 24 24" fill={petal.color} className="opacity-90 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">
-            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" opacity="0" />
-            <path d="M12 2.25C8.5 2.25 2 6 2 12C2 17 8.5 21.75 12 21.75C15.5 21.75 22 17 22 12C22 6 15.5 2.25 12 2.25Z" />
-          </svg>
-        </motion.div>
-      ))}
-    </div>
-  );
-}
-
 function TypewriterEffect({ words }: { words: string[] }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -186,11 +139,11 @@ function TypewriterEffect({ words }: { words: string[] }) {
 
   useEffect(() => {
     const word = words[currentWordIndex];
-    const typeSpeed = isDeleting ? 30 : 80;
+    const typeSpeed = isDeleting ? 30 : 90;
     
     const timeout = setTimeout(() => {
       if (!isDeleting && currentText === word) {
-        setTimeout(() => setIsDeleting(true), 2500); 
+        setTimeout(() => setIsDeleting(true), 3000); 
       } else if (isDeleting && currentText === '') {
         setIsDeleting(false);
         setCurrentWordIndex((prev) => (prev + 1) % words.length);
@@ -204,30 +157,31 @@ function TypewriterEffect({ words }: { words: string[] }) {
 
   return (
     <span className="inline-block relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-pink-500 drop-shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+      <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
         {currentText}
       </span>
-      <span className="text-pink-500 animate-pulse ml-1 font-light">|</span>
+      <span className="text-pink-500 animate-[pulse_1s_ease-in-out_infinite] ml-2 font-light">|</span>
     </span>
   );
 }
 
 function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; title: string; subtitle: string; data: { label: string; value: string }[] }) {
   return (
-    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/40 transition-all duration-300 group relative overflow-hidden shadow-lg">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/0 group-hover:bg-pink-500/15 blur-[40px] transition-colors" />
+    <div className="bg-white/[0.02] backdrop-blur-[40px] border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.5)] p-6 rounded-[2rem] hover:bg-white/[0.04] transition-all duration-500 group relative">
       <div className="flex items-center gap-4 mb-6 relative z-10">
-        <div className="text-gray-400 group-hover:text-pink-400 transition-colors">{icon}</div>
+        <div className="p-3 bg-white/[0.05] rounded-2xl text-gray-300 group-hover:text-pink-400 group-hover:bg-pink-500/10 transition-colors shadow-inner">
+          {icon}
+        </div>
         <div>
-          <h3 className="text-sm font-semibold text-white">{title}</h3>
-          <p className="text-xs text-gray-500">{subtitle}</p>
+          <h3 className="text-base font-bold text-white tracking-wide">{title}</h3>
+          <p className="text-xs text-gray-400 font-light">{subtitle}</p>
         </div>
       </div>
       <div className="space-y-1 font-mono text-xs relative z-10">
         {data.map((item, i) => (
-          <div key={i} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
+          <div key={i} className="flex justify-between items-center py-2.5 border-b border-white/5 last:border-0">
             <span className="text-gray-500">{item.label}</span>
-            <span className="text-pink-100 font-medium">{item.value}</span>
+            <span className="text-gray-200 font-medium">{item.value}</span>
           </div>
         ))}
       </div>
@@ -235,39 +189,31 @@ function SampleCard({ icon, title, subtitle, data }: { icon: React.ReactNode; ti
   );
 }
 
-function BenefitBox({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="bg-[#050304]/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:border-pink-500/40 transition-colors group shadow-lg">
-      <div className="mb-4 text-gray-500 group-hover:text-pink-400 transition-colors">
-        <Check className="w-5 h-5" />
-      </div>
-      <h3 className="text-base font-semibold text-white mb-2">{title}</h3>
-      <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
-    </div>
-  );
-}
-
 function PricingCard({ title, price, period, desc, features, popular }: { title: string; price: string; period: string; desc: string; features: string[]; popular?: boolean }) {
   return (
-    <div className={`bg-[#050304]/90 backdrop-blur-xl border transition-all duration-300 min-h-[460px] flex flex-col justify-between ${popular ? 'border-pink-500/70 shadow-[0_0_40px_rgba(236,72,153,0.2)] relative z-10' : 'border-white/10 hover:border-pink-500/40'} p-8 rounded-3xl relative overflow-hidden`}>
-      {popular && <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-pink-500 to-rose-500" />}
+    <div className={`bg-white/[0.02] backdrop-blur-[40px] transition-all duration-500 min-h-[500px] flex flex-col justify-between p-8 rounded-[2rem] relative group ${popular ? 'border border-pink-500/50 shadow-[0_0_50px_rgba(236,72,153,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)] z-10 scale-105' : 'border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.4)] hover:bg-white/[0.04]'}`}>
+      
       <div className="flex-1">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
-          {popular && <span className="bg-pink-500/20 text-pink-400 text-[10px] px-2 py-1 rounded-full uppercase tracking-widest font-bold border border-pink-500/30">Popular</span>}
+        <h3 className="text-xl font-medium text-white tracking-tight mb-2">{title}</h3>
+        <p className="text-sm text-gray-400 font-light leading-relaxed mb-8 pr-4">{desc}</p>
+        
+        <div className="text-5xl font-bold text-white mb-8 tracking-tighter">
+          {price}<span className="text-lg font-normal text-gray-500 tracking-normal ml-1">{period}</span>
         </div>
-        <p className="text-xs text-gray-500 mb-6">{desc}</p>
-        <div className="text-4xl font-bold text-white mb-1 tracking-tight drop-shadow-md">{price} <span className="text-sm font-normal text-gray-500 tracking-normal">/ {period}</span></div>
-        <div className="space-y-4 mt-8 pt-6 border-t border-white/5">
+        
+        <div className="space-y-4 pt-4">
           {features.map((f, i) => (
-            <div key={i} className="flex items-start gap-3 text-sm text-gray-400">
-              <Check className="w-4 h-4 text-pink-500 shrink-0" />
+            <div key={i} className="flex items-start gap-3 text-sm text-gray-300 font-light">
+              <div className="p-1 rounded-full bg-white/10 shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-white" />
+              </div>
               <span>{f}</span>
             </div>
           ))}
         </div>
       </div>
-      <Link to="/login" className={`mt-8 w-full py-3 rounded-xl font-medium text-sm text-center transition-all duration-300 ${popular ? 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white shadow-[0_0_20px_rgba(236,72,153,0.4)]' : 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'}`}>
+
+      <Link to="/login" className={`mt-10 w-full py-4 rounded-full font-semibold text-sm text-center transition-all duration-300 ${popular ? 'bg-white text-black hover:bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'bg-white/10 text-white hover:bg-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'}`}>
         Choose Plan
       </Link>
     </div>
