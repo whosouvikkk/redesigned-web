@@ -157,7 +157,7 @@ export default function Landing() {
             price="₹50" 
             period="20 Credits" 
             desc="Minimum buy 20 credits." 
-            features={['Full API access', 'Lifetime credit validity', 'JSON Export capabilities']} 
+            features={['1 Credit = 1 Lookup', 'Lifetime credit validity (if unused)', 'Purchase additional credits anytime']} 
           />
           <PricingCard 
             index={1}
