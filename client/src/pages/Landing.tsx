@@ -41,7 +41,7 @@ export default function Landing() {
           </h1>
           
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-            An enterprise-grade intelligence platform. Recover information from public databases instantly, verify identities, and evaluate risk footprints securely.
+            Gather, verify, and analyze publicly available information through a unified intelligence platform.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
