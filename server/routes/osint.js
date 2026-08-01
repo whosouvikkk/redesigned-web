@@ -38,9 +38,12 @@ router.post('/search', auth, async (req, res) => {
     // Standard backend payload sanitization
     data = cleanPayload(data, process.env.KEY_OWNER_REPLACEMENT || 'MoonWitch');
 
-    // Target and remove the _proxy object specifically for vehicle lookups
-    if (type === 'vehicle' && data._proxy) {
-      delete data._proxy;
+    // DEEP CLEAN: Target and remove the _proxy object from ANYWHERE in the payload for vehicle lookups
+    if (type === 'vehicle') {
+      data = JSON.parse(JSON.stringify(data, (key, value) => {
+        if (key === '_proxy') return undefined; // Completely removes the key
+        return value;
+      }));
     }
 
     if (!isSubActive) {
