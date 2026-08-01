@@ -97,21 +97,21 @@ export default function Landing() {
             icon={<Car />} 
             title="Vehicle Lookup" 
             subtitle="RTO & Ownership Schema" 
-            jsonString={`{\n  "address": {\n    "city": "",\n    "permanent": "",\n    "pincode": "",\n    "present": ""\n  },\n  "": "",\n  "": {\n    "name": ""\n  },\n  "owner": {\n    "father_name": "",\n    "name": ""\n  },\n  "puc": {\n    "no": "",\n    "valid_upto": ""\n  },\n  "registration": {\n    "authority": "",\n    "date": "",\n    "rto": "",\n    "rto_code": "KL-41"\n  },\n  "registration_number": "KL41V3504",\n  "response_time": 4.78,\n  "rto_contact": {\n    "phone": "(+91)48426 22006"\n  },\n  "success": true,\n  "vehicle": {\n    "cc": 97,\n    "class": "M-Cycle/Scooter(2WN)",\n    "commercial": false,\n    "fuel": "PETROL",\n    "fuel_norms": "",\n    "maker_model": "",\n    "manufacturer": "HERO MOTOCORP",\n    "model": "SPLENDOR PLUS",\n    "seating": 2,\n    "type": "TwoWheeler",\n    "variant": "I3S (97 cc)"\n  },\n  "insurance": {\n    "company": "United India Insurance Co. Ltd.",\n    "expired": false,\n    "policy_no": "04010031240161363417",\n    "valid_upto": "18/9/2029"\n  }\n}`}
+            jsonString={`{\n  "address": {\n    "city": "",\n    "permanent": "",\n    "pincode": "",\n    "present": ""\n  },\n  "": "",\n  "": {\n    "name": ""\n  },\n  "owner": {\n    "father_name": "",\n    "name": ""\n  },\n  "puc": {\n    "no": "",\n    "valid_upto": ""\n  },\n  "registration": {\n    "authority": "",\n    "date": "",\n    "rto": "",\n    "rto_code": ""\n  },\n  "registration_number": "",\n  "response_time": 4.78,\n  "rto_contact": {\n    "phone": "(+91)"\n  },\n  "success": true,\n  "vehicle": {\n    "cc": ,\n    "class": "",\n    "commercial": ,\n    "fuel": "",\n    "fuel_norms": "",\n    "maker_model": "",\n    "manufacturer": "",\n    "model": "",\n    "seating": ,\n    "type": "",\n    "variant": ""\n  },\n  "insurance": {\n    "company": "",\n    "expired": ,\n    "policy_no": "",\n    "valid_upto": ""\n  }\n}`}
           />
           <SampleCard 
             index={3} 
             icon={<Key />} 
             title="Vehicle to Number" 
             subtitle="Contact Extraction Schema" 
-            jsonString={`{\n  "vehicle": "KL41V3504",\n  "chassis_number": "MBLHAW222R5H00056",\n  "engine_number": "HA11E7R5G60737",\n  "mobile_number": "8129199443"\n}`}
+            jsonString={`{\n  "vehicle": "",\n  "chassis_number": "",\n  "engine_number": "",\n  "mobile_number": ""\n}`}
           />
           <SampleCard 
             index={4} 
             icon={<Crosshair />} 
             title="Bomber Module" 
-            subtitle="Automated Stress Testing" 
-            jsonString={`{\n  "rounds": 1,\n  "target": "7980346129"\n}`}
+            subtitle="Automated Sms Spammer " 
+            jsonString={`{\n  "rounds": 1,\n  "target": ""\n}`}
           />
         </div>
       </section>
