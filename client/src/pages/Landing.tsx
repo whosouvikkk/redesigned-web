@@ -174,7 +174,7 @@ export default function Landing() {
             price="₹499" 
             period="30 Days" 
             desc="Enterprise access for analysts." 
-            features={['Unlimited lookups','Faster processing speeds', 'Priority customer support', 'Free Data Protection']} 
+            features={['Unlimited lookups','Faster processing speeds', 'Priority customer support', 'Upto 5x Free Data Protection']} 
           />
           <PricingCard 
             index={3}
@@ -182,7 +182,7 @@ export default function Landing() {
             price="₹1,999" 
             period="Forever" 
             desc="Permanent platform access." 
-            features={['Own Custom Api access', 'Zero recurring sub', 'VIP priority nodes']} 
+            features={['Own Custom Api access', 'Zero recurring sub', 'VIP priority nodes',  'Unlimited Free Data Protection', 'Custom Database']} 
           />
         </div>
       </section>
