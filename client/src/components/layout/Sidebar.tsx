@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Search, LogOut, Shield, ShieldCheck, CreditCard } from 'lucide-react';
+import { LayoutDashboard, Search, LogOut, ShieldCheck, CreditCard } from 'lucide-react';
 
 export default function Sidebar({ user }: { user?: any }) {
   const navigate = useNavigate();
@@ -14,10 +14,9 @@ export default function Sidebar({ user }: { user?: any }) {
   return (
     <aside className="w-64 border-r border-white/10 bg-[#0a0508]/80 backdrop-blur-xl flex flex-col justify-between p-6">
       <div>
-        <Link to="/" className="flex items-center gap-2 font-bold text-lg mb-8 text-white">
-          <Shield className="text-pink-500 w-5 h-5" />
-          <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
-        </Link>
+        <Link to="/" className="font-bold text-lg mb-8 text-white">
+  <span>MOONWITCH<span className="text-pink-500">.IN</span></span>
+</Link>
 
         {user && (
           <div className="bg-gradient-to-br from-pink-500/10 to-transparent border border-white/5 p-4 rounded-xl mb-6 shadow-glass-edge">
