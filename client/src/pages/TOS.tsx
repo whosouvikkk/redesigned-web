@@ -27,31 +27,139 @@ export default function TOS() {
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Terms of Service</h1>
             <p className="text-pink-400 font-medium mb-12">Last Updated: August 2026</p>
 
-            <div className="space-y-8 text-gray-400 font-light leading-relaxed">
+            <div className="space-y-10 text-gray-400 font-light leading-relaxed">
+              
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">1. Acceptance of Terms</h2>
-                <p>By accessing and using the MoonWitch OSINT Engine platform, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you are prohibited from using the platform.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">1. Acceptance</h2>
+                <p>By accessing or using MoonWitch, you agree to these Terms of Service. If you do not agree, you must not use the platform.</p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">2. Permitted Use & Compliance</h2>
-                <p>MoonWitch OSINT is designed exclusively for authorized intelligence gathering, security research, and personal audit purposes. Users must comply with all local, state, and international laws regarding data privacy and information gathering.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">2. Description of Service</h2>
+                <p>MoonWitch provides an intelligence platform designed to organize information from publicly available sources and third-party services. Availability of specific lookup modules may change without notice.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">3. Lawful Use</h2>
+                <p>You agree to use MoonWitch only for lawful purposes. You must not use the platform to:</p>
                 <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
-                  <li>You must not use the platform for targeted harassment, stalking, or malicious activities.</li>
-                  <li>You are solely responsible for the queries executed under your Agent ID.</li>
-                  <li>Any violation of these terms will result in immediate termination of your access without refund.</li>
+                  <li>Harass or stalk individuals</li>
+                  <li>Commit fraud</li>
+                  <li>Engage in identity theft</li>
+                  <li>Perform unauthorized access</li>
+                  <li>Violate privacy laws</li>
+                  <li>Circumvent applicable laws or regulations</li>
+                  <li>Conduct illegal surveillance</li>
+                  <li>Engage in any criminal activity</li>
+                </ul>
+                <p className="mt-4">You are solely responsible for how you use any information obtained through the platform.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">4. User Responsibility</h2>
+                <p>Users are responsible for:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Ensuring their use complies with all applicable laws.</li>
+                  <li>Independently verifying any information before relying on it.</li>
+                  <li>Maintaining the security of their accounts.</li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">3. Credits and Subscriptions</h2>
-                <p>Purchases of credits or subscription tiers are final. Credits do not expire unless otherwise explicitly stated in the plan's details. Subscriptions grant access for the stipulated time frame and are evaluated based on server time.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">5. Information Accuracy</h2>
+                <p>Information provided through MoonWitch may originate from public records, third-party services, or publicly accessible sources. We make no warranty that any information is:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Accurate</li>
+                  <li>Complete</li>
+                  <li>Current</li>
+                  <li>Error-free</li>
+                </ul>
+                <p className="mt-4">Users must independently verify all information before taking action.</p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">4. Limitation of Liability</h2>
-                <p>The intelligence payloads returned by MoonWitch OSINT are aggregated from publicly available databases and external nodes. We do not guarantee the 100% accuracy, completeness, or timeliness of the data. Use the provided information at your own risk.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">6. No Legal Advice</h2>
+                <p>MoonWitch does not provide:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Legal advice</li>
+                  <li>Financial advice</li>
+                  <li>Government records certification</li>
+                  <li>Identity verification guarantees</li>
+                </ul>
+                <p className="mt-4">The platform is provided for informational and research purposes.</p>
               </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">7. Payments</h2>
+                <p>All purchases are generally non-refundable except where required by applicable consumer protection laws. Credits and subscriptions may only be used within the MoonWitch platform.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">8. Service Availability</h2>
+                <p>We may:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Modify features</li>
+                  <li>Remove modules</li>
+                  <li>Suspend accounts</li>
+                  <li>Perform maintenance</li>
+                </ul>
+                <p className="mt-4">without prior notice.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">9. Intellectual Property</h2>
+                <p>All website content, branding, software, source code, graphics, and designs remain the property of MoonWitch unless otherwise stated.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">10. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, MoonWitch shall not be liable for:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Data inaccuracies</li>
+                  <li>Third-party content</li>
+                  <li>Business losses</li>
+                  <li>Lost profits</li>
+                  <li>Indirect damages</li>
+                  <li>Consequential damages</li>
+                  <li>Decisions made based on lookup results</li>
+                </ul>
+                <p className="mt-4">Use of the platform is entirely at your own risk.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">11. Indemnification</h2>
+                <p>You agree to indemnify and hold MoonWitch harmless from claims, liabilities, damages, and expenses arising from your use of the platform or your violation of these Terms.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">12. Account Suspension</h2>
+                <p>We reserve the right to suspend or terminate any account that:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Violates these Terms</li>
+                  <li>Abuses the platform</li>
+                  <li>Attempts to bypass limitations</li>
+                  <li>Engages in unlawful activities</li>
+                </ul>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">13. Changes</h2>
+                <p>These Terms may be updated periodically. Continued use of MoonWitch constitutes acceptance of the revised Terms.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">14. Contact</h2>
+                <p>Questions regarding these Terms or the Privacy Policy may be directed via Telegram:<br/>
+                <a href="https://t.me/moonwitchadminbot" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 underline underline-offset-4 mt-2 inline-block">@moonwitchadminbot</a></p>
+              </section>
+
+              <div className="h-px bg-white/10 w-full my-8"></div>
+
+              <section className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl shadow-inner">
+                <h2 className="text-xl font-bold text-white mb-3 tracking-wide flex items-center gap-2">Disclaimer</h2>
+                <p className="text-sm text-gray-400">MoonWitch is an OSINT (Open-Source Intelligence) platform. The service is intended to assist users in organizing and analyzing information from publicly available or authorized third-party sources. Users are solely responsible for ensuring that their use of the platform complies with all applicable laws, regulations, and third-party terms. MoonWitch does not endorse or facilitate unlawful surveillance, harassment, identity theft, or unauthorized access to information.</p>
+              </section>
+
             </div>
           </div>
         </div>
