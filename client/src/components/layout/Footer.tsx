@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,9 +8,15 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           
           <div className="flex items-center gap-2 font-bold text-lg text-white">
-            <Shield className="text-pink-500 w-6 h-6" />
-            <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
-          </div>
+  <img
+    src="/witch.png"
+    alt="MoonWitch"
+    className="w-8 h-8 object-contain"
+  />
+  <span>
+    MOONWITCH<span className="text-pink-500">.IN</span>
+  </span>
+</div>
 
           <p className="text-gray-500 text-sm font-light text-center md:text-left">
             &copy; {new Date().getFullYear()} MoonWitch Intelligence. All rights reserved.
