@@ -1,16 +1,41 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Shield } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border py-12 px-6 max-w-7xl mx-auto mt-20 flex flex-col md:flex-row items-center justify-between text-sm text-gray-500 relative z-10">
-      <div>© 2026 MoonWitch OSINT. All rights reserved.</div>
-      <div className="flex items-center gap-6 my-4 md:my-0">
-        <a href="#" className="hover:text-pink-400 transition-colors">Privacy Policy</a>
-        <a href="#" className="hover:text-pink-400 transition-colors">Terms of Service</a>
-        <a href="#" className="hover:text-pink-400 transition-colors">Contact</a>
-      </div>
-      <div className="text-xs text-gray-600">
-        Special Thanks: Souvik • Spandan • Yash
+    <footer className="border-t border-white/10 bg-black/50 backdrop-blur-xl relative z-10">
+      <div className="max-w-7xl mx-auto px-6 py-8 md:py-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          
+          <div className="flex items-center gap-2 font-bold text-lg text-white">
+            <Shield className="text-pink-500 w-6 h-6" />
+            <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
+          </div>
+
+          <p className="text-gray-500 text-sm font-light text-center md:text-left">
+            &copy; {new Date().getFullYear()} MoonWitch Intelligence. All rights reserved.
+          </p>
+
+          <div className="flex items-center gap-6">
+            <Link to="/tos" className="text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium">
+              Terms of Service
+            </Link>
+            <Link to="/privacy" className="text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium">
+              Privacy Policy
+            </Link>
+            {/* Replace the href below with your actual Telegram link */}
+            <a 
+              href="https://t.me/moonwitchservices" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium"
+            >
+              Contact
+            </a>
+          </div>
+
+        </div>
       </div>
     </footer>
   );
