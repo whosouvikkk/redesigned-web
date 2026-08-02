@@ -25,33 +25,99 @@ export default function Privacy() {
 
           <div className="relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Privacy Policy</h1>
-            <p className="text-pink-400 font-medium mb-12">Last Updated: August 2026</p>
+            <p className="text-pink-400 font-medium mb-8">Last Updated: August 2026</p>
 
-            <div className="space-y-8 text-gray-400 font-light leading-relaxed">
+            <p className="text-gray-400 font-light leading-relaxed mb-10">
+              Welcome to MoonWitch ("we"). This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.
+            </p>
+
+            <div className="space-y-10 text-gray-400 font-light leading-relaxed">
+              
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">1. Data Collection</h2>
-                <p>We respect your privacy as an investigator. MoonWitch OSINT Engine minimizes the data we collect about you. We only store:</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">1. Information We Collect</h2>
+                <p>We may collect:</p>
                 <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
-                  <li>Your securely hashed Agent authorization credentials (Username/Password).</li>
-                  <li>A ledger of your search history (to deduct credits and maintain rate limits).</li>
-                  <li>Billing transaction IDs for manual verification purposes.</li>
+                  <li>Username</li>
+                  <li>Email address (if provided)</li>
+                  <li>IP address</li>
+                  <li>Browser and device information</li>
+                  <li>Lookup requests submitted through our platform</li>
+                  <li>Payment information submitted by the user (such as transaction references)</li>
+                  <li>Website analytics and usage information</li>
+                </ul>
+                <p className="mt-4">We do not intentionally collect sensitive personal information unless it is voluntarily provided by you or required to operate the service.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">2. How We Use Your Information</h2>
+                <p>We use information to:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Provide our services</li>
+                  <li>Verify user accounts</li>
+                  <li>Process subscriptions and credits</li>
+                  <li>Improve platform performance</li>
+                  <li>Detect abuse or fraudulent activity</li>
+                  <li>Respond to support requests</li>
+                  <li>Comply with legal obligations</li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">2. Log Retention</h2>
-                <p>Search queries are logged strictly for accounting purposes against your credit balance. We do not sell your search history to third-party data brokers. All payloads are sanitized by our backend before being rendered on your dashboard.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">3. Public Data Sources</h2>
+                <p>MoonWitch provides tools that search, organize, or display information that may be available from publicly accessible sources or third-party providers. We do not claim ownership of publicly available information and do not guarantee its accuracy, completeness, or timeliness.</p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">3. Data Removal Requests</h2>
-                <p>If you find your personal information exposed within our search parameters, you have the right to request a redaction. You may submit a removal request via the "Data Removal" tool in the dashboard. Our administrators review these requests within 48-72 hours.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">4. Payments</h2>
+                <p>Payments are processed manually. Transaction references may be stored solely for verification and fraud prevention.</p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-white mb-4 tracking-wide">4. Security Measures</h2>
-                <p>Your connection to the MoonWitch network is secured via end-to-end encryption. All internal database structures utilize modern hashing algorithms for credential protection. However, no internet transmission is 100% secure, and we advise practicing standard OPSEC while utilizing the platform.</p>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">5. Data Security</h2>
+                <p>We implement reasonable technical and organizational measures to protect user information. However, no online service can guarantee absolute security.</p>
               </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">6. Third-Party Services</h2>
+                <p>We may use third-party providers including:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Hosting providers</li>
+                  <li>Analytics providers</li>
+                  <li>Authentication services</li>
+                  <li>Payment services</li>
+                  <li>External OSINT APIs</li>
+                </ul>
+                <p className="mt-4">These services have their own privacy policies.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">7. User Rights</h2>
+                <p>Depending on your jurisdiction, you may have rights to:</p>
+                <ul className="list-disc pl-5 mt-4 space-y-2 text-gray-300">
+                  <li>Access your personal information</li>
+                  <li>Request correction</li>
+                  <li>Request deletion</li>
+                  <li>Object to processing</li>
+                  <li>Request data portability</li>
+                </ul>
+                <p className="mt-4">Please contact us for requests regarding your data.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">8. Cookies</h2>
+                <p>We may use cookies and similar technologies to improve functionality and user experience.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">9. Children's Privacy</h2>
+                <p>MoonWitch is not intended for users under the age required by applicable law.</p>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-semibold text-white mb-3 tracking-wide">10. Changes</h2>
+                <p>We may update this Privacy Policy at any time. Continued use of the platform constitutes acceptance of any changes.</p>
+              </section>
+
             </div>
           </div>
         </div>
