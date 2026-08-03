@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Search, CreditCard, Clock, LogOut, Shield } from 'lucide-react';
+import { LayoutDashboard, Search, CreditCard, LogOut, Shield } from 'lucide-react';
 import api from '../../services/api';
 
 export default function Sidebar({ closeSidebar }: { closeSidebar?: () => void }) {
@@ -19,7 +19,6 @@ export default function Sidebar({ closeSidebar }: { closeSidebar?: () => void })
   const links = [
     { to: '/dashboard', icon: <LayoutDashboard className="w-5 h-5" />, label: 'Overview' },
     { to: '/dashboard/lookup', icon: <Search className="w-5 h-5" />, label: 'Intelligence' },
-    { to: '/dashboard/history', icon: <Clock className="w-5 h-5" />, label: 'History Ledger' },
     { to: '/dashboard/billing', icon: <CreditCard className="w-5 h-5" />, label: 'Billing & Plans' },
   ];
 
