@@ -1,80 +1,85 @@
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const axios = require('axios');
+const auth = require('../middleware/auth'); // Adjust if your auth middleware is exported differently
 const User = require('../models/User');
 const History = require('../models/History');
 const ProtectRequest = require('../models/ProtectRequest');
-const { cleanPayload } = require('../utils/cleaner');
+const cleaner = require('../utils/cleaner'); // Assuming you use this in your search route
 
-router.post('/search', auth, async (req, res) => {
-  const { type, query } = req.body;
-  const user = await User.findById(req.user.id);
+// ============================================================================
+// ⚠️ 1. YOUR EXISTING SEARCH ROUTE
+// PASTE YOUR EXISTING `router.post('/search', ...)` LOGIC HERE.
+// DO NOT OVERWRITE YOUR PROPRIETARY EXTERNAL API CALLS OR CLEANER LOGIC.
+// ============================================================================
 
-  if (!user) return res.status(404).json({ error: 'User not found' });
+/* 
+  Example of what your existing route looks like:
+  router.post('/search', auth, async (req, res) => { ... });
+*/
 
-  const isSubActive = user.subscription !== 'none' && 
-                      (user.subscription === 'lifetime' || (user.subscriptionExpiry && new Date(user.subscriptionExpiry) > new Date()));
-  
-  if (!isSubActive && user.credits <= 0) {
-    return res.status(403).json({ error: 'Insufficient credits' });
-  }
 
-  const urls = {
-    number: process.env.OSINT_NUMBER_URL,
-    vehicle: process.env.OSINT_VEHICLE_URL,
-    vehicle2number: process.env.OSINT_VEHICLE2NUMBER_URL || process.env.OSINT_VEHICLE_URL,
-    aadhar: process.env.OSINT_AADHAR_URL,
-    bomber: process.env.OSINT_BOMBER_URL || process.env.OSINT_NUMBER_URL,
-  };
+// ============================================================================
+// ⚠️ 2. YOUR EXISTING HISTORY ROUTE
+// PASTE YOUR EXISTING `router.get('/history', ...)` LOGIC HERE.
+// ============================================================================
 
-  const endpoint = urls[type];
-  if (!endpoint) return res.status(400).json({ error: 'Invalid lookup type' });
+/* 
+  Example of what your existing route looks like:
+  router.get('/history', auth, async (req, res) => { ... });
+*/
 
-  try {
-    const response = await axios.get(`${endpoint}${encodeURIComponent(query)}`);
-    let data = response.data;
 
-    // Standard backend payload sanitization
-    data = cleanPayload(data, process.env.KEY_OWNER_REPLACEMENT || 'MoonWitch');
-
-    // DEEP CLEAN: Target and remove the _proxy object from ANYWHERE in the payload for vehicle lookups
-    if (type === 'vehicle') {
-      data = JSON.parse(JSON.stringify(data, (key, value) => {
-        if (key === '_proxy') return undefined; // Completely removes the key
-        return value;
-      }));
-    }
-
-    if (!isSubActive) {
-      user.credits -= 1;
-      await user.save();
-    }
-
-    await History.create({ userId: user._id, type, query, status: 'success' });
-    return res.json(data);
-  } catch (error) {
-    await History.create({ userId: user._id, type, query, status: 'failed' });
-    return res.status(404).json({ error: 'No data found in database' });
-  }
-});
-
-router.get('/history', auth, async (req, res) => {
-  try {
-    const history = await History.find({ userId: req.user.id }).sort({ createdAt: -1 }).limit(50);
-    res.json(history);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+// ============================================================================
+// ✅ 3. NEW DATA REMOVAL ROUTE (WITH DISCORD WEBHOOK)
+// THIS REPLACES YOUR OLD /protect-request ROUTE.
+// ============================================================================
 
 router.post('/protect-request', async (req, res) => {
   try {
-    const { name, phone, reason, details } = req.body;
-    const request = await ProtectRequest.create({ name, phone, reason, details });
+    // 1. Extract the newly defined fields from the frontend
+    const { fullName, email, telegram, dataToProtect, details } = req.body;
+    
+    // 2. Save the request to the MongoDB database
+    const request = await ProtectRequest.create({ 
+      fullName, 
+      email, 
+      telegram, 
+      dataToProtect, 
+      details 
+    });
+
+    // 3. Fire the Discord Webhook notification
+    // Ensure DISCORD_WEBHOOK_URL is set in your .env file
+    if (process.env.DISCORD_WEBHOOK_URL) {
+      try {
+        await axios.post(process.env.DISCORD_WEBHOOK_URL, {
+          embeds: [{
+            title: "🛡️ New Data Removal Request (199rs)",
+            description: "A user has submitted a paid redaction request.",
+            color: 0xec4899, // MoonWitch Pink
+            fields: [
+              { name: "Full Name", value: fullName, inline: true },
+              { name: "Contact Email", value: email, inline: true },
+              { name: "Telegram", value: telegram || "N/A", inline: true },
+              { name: "Target Data", value: `\`${dataToProtect}\``, inline: false },
+              { name: "Additional Details", value: details ? details : "None provided", inline: false }
+            ],
+            timestamp: new Date().toISOString(),
+            footer: { text: "MoonWitch OSINT Engine" }
+          }]
+        });
+      } catch (webhookErr) {
+        console.error("Discord Webhook failed to send:", webhookErr.message);
+        // We do not throw an error to the frontend here, so the user still sees a success message
+        // even if the Discord API fails or rate-limits the webhook.
+      }
+    }
+    
     res.json({ success: true, request });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to submit protection request' });
+    console.error("Protect request error:", err);
+    res.status(500).json({ error: 'Failed to submit data removal request' });
   }
 });
 
