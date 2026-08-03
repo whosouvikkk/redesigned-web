@@ -11,7 +11,7 @@ const verifyAdmin = (req, res, next) => {
   next();
 };
 
-// POST route to login and fetch users (We use POST so we can securely send the password in the body)
+// POST route to login and fetch users
 router.post('/users', verifyAdmin, async (req, res) => {
   try {
     const users = await User.find().select('-password').sort({ createdAt: -1 });
@@ -28,7 +28,31 @@ router.put('/user/:id', verifyAdmin, async (req, res) => {
     const updateData = {};
     
     if (credits !== undefined) updateData.credits = credits;
-    if (subscription !== undefined) updateData.subscription = subscription;
+    
+    if (subscription !== undefined) {
+      updateData.subscription = subscription;
+      
+      // Automatically calculate and set the expiration date based on the plan chosen
+      if (subscription === 'weekly') {
+        const expiry = new Date();
+        expiry.setDate(expiry.getDate() + 7);
+        updateData.subscriptionExpiry = expiry;
+      } 
+      else if (subscription === 'monthly') {
+        const expiry = new Date();
+        expiry.setMonth(expiry.getMonth() + 1);
+        updateData.subscriptionExpiry = expiry;
+      } 
+      else if (subscription === 'lifetime') {
+        const expiry = new Date();
+        expiry.setFullYear(expiry.getFullYear() + 100); // 100 years into the future
+        updateData.subscriptionExpiry = expiry;
+      } 
+      else {
+        // If 'none' is selected, clear the expiry
+        updateData.subscriptionExpiry = null;
+      }
+    }
 
     const user = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
     res.json(user);
