@@ -28,7 +28,7 @@ export default function Lookup() {
   return (
     <div className="max-w-5xl mx-auto w-full">
       <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Active Intelligence</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Active Search</h1>
         <p className="text-gray-400 text-sm md:text-base mt-1 font-light">Initialize a new search vector against external public nodes.</p>
       </div>
 
@@ -40,11 +40,11 @@ export default function Lookup() {
             className="w-full md:w-48 bg-black/60 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white outline-none focus:border-pink-500 shadow-inner appearance-none"
           >
             <option value="number">Number Lookup</option>
-            <option value="aadhar">Aadhaar Info</option>
-            <option value="vehicle">Vehicle (RC)</option>
+            <option value="aadhar">Aadhaar Lookup</option>
+            <option value="vehicle">Vehicle Info Lookup</option>
             {/* Fixed the ">" symbol here by using "&gt;" */}
             <option value="vehicle2number">Vehicle -&gt; Number</option>
-            <option value="bomber">Stress Bomber</option>
+            <option value="bomber">Sms Bomber</option>
           </select>
           
           <div className="relative flex-1">
