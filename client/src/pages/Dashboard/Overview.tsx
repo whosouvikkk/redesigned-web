@@ -5,7 +5,6 @@ import { ShieldAlert, ArrowRight, Zap, Database, Activity } from 'lucide-react';
 export default function Overview() {
   const { user } = useOutletContext<any>();
 
-  // Check if the user has an active subscription
   const isSubActive = user?.subscription !== 'none' && 
                       (user?.subscription === 'lifetime' || (user?.subscriptionExpiry && new Date(user.subscriptionExpiry) > new Date()));
 
