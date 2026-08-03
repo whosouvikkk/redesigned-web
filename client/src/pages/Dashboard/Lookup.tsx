@@ -42,7 +42,8 @@ export default function Lookup() {
             <option value="number">Number Lookup</option>
             <option value="aadhar">Aadhaar Info</option>
             <option value="vehicle">Vehicle (RC)</option>
-            <option value="vehicle2number">Vehicle -> Number</option>
+            {/* Fixed the ">" symbol here by using "&gt;" */}
+            <option value="vehicle2number">Vehicle -&gt; Number</option>
             <option value="bomber">Stress Bomber</option>
           </select>
           
