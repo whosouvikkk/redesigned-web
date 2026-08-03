@@ -1,59 +1,89 @@
-import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Search, LogOut, ShieldCheck, CreditCard } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Search, CreditCard, Clock, LogOut, Shield } from 'lucide-react';
+import api from '../../services/api';
 
-export default function Sidebar({ user }: { user?: any }) {
+export default function Sidebar({ closeSidebar }: { closeSidebar?: () => void }) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const [user, setUser] = useState<{ username: string; credits: number; subscription: string } | null>(null);
 
-  const logout = () => {
+  useEffect(() => {
+    api.get('/auth/me').then(res => setUser(res.data)).catch(() => {});
+  }, []);
+
+  const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
 
+  const links = [
+    { to: '/dashboard', icon: <LayoutDashboard className="w-5 h-5" />, label: 'Overview' },
+    { to: '/dashboard/lookup', icon: <Search className="w-5 h-5" />, label: 'Intelligence' },
+    { to: '/dashboard/history', icon: <Clock className="w-5 h-5" />, label: 'History Ledger' },
+    { to: '/dashboard/billing', icon: <CreditCard className="w-5 h-5" />, label: 'Billing & Plans' },
+  ];
+
   return (
-    <aside className="w-64 border-r border-white/10 bg-[#0a0508]/80 backdrop-blur-xl flex flex-col justify-between p-6">
-      <div>
-        <Link to="/" className="font-bold text-lg mb-8 text-white">
-  <span>MOONWITCH<span className="text-pink-500">.IN</span></span>
-</Link>
-
-        {user && (
-          <div className="bg-gradient-to-br from-pink-500/10 to-transparent border border-white/5 p-4 rounded-xl mb-6 shadow-glass-edge">
-            <div className="text-xs text-gray-400">Agent Identifier</div>
-            <div className="text-sm font-bold text-pink-400 truncate mb-2">{user.username}</div>
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-gray-400">Credits:</span>
-              <span className="font-mono font-bold text-white">{user.credits}</span>
-            </div>
-            <div className="flex justify-between items-center text-xs mt-1">
-              <span className="text-gray-400">Plan:</span>
-              <span className="uppercase font-semibold text-pink-500">{user.subscription}</span>
-            </div>
-          </div>
-        )}
-
-        <nav className="space-y-1">
-          <NavItem to="/dashboard" icon={<LayoutDashboard className="w-4 h-4" />} label="Overview" active={location.pathname === '/dashboard'} />
-          <NavItem to="/dashboard/lookup" icon={<Search className="w-4 h-4" />} label="OSINT Lookup" active={location.pathname === '/dashboard/lookup'} />
-          <NavItem to="/dashboard/billing" icon={<CreditCard className="w-4 h-4" />} label="Billing & Plans" active={location.pathname.includes('/dashboard/billing') || location.pathname.includes('/checkout')} />
-          <NavItem to="/protected-data" icon={<ShieldCheck className="w-4 h-4" />} label="Data Removal" active={location.pathname === '/protected-data'} />
-        </nav>
+    <div className="h-full bg-black/80 backdrop-blur-2xl border-r border-white/10 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.5)]">
+      
+      {/* Logo */}
+      <div className="p-6 md:p-8 flex items-center gap-3">
+        <div className="p-2 bg-pink-500/10 rounded-xl border border-pink-500/20">
+          <Shield className="w-6 h-6 text-pink-500" />
+        </div>
+        <div className="font-bold text-xl tracking-wide text-white">
+          Moon<span className="text-pink-500">Witch</span>
+        </div>
       </div>
 
-      <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-400 hover:text-pink-400 hover:bg-pink-500/10 transition-colors">
-        <LogOut className="w-4 h-4" />
-        <span>Disconnect</span>
-      </button>
-    </aside>
-  );
-}
+      {/* User Stats Card */}
+      {user && (
+        <div className="px-4 md:px-6 mb-8">
+          <div className="bg-white/[0.02] border border-white/5 p-4 rounded-2xl shadow-inner">
+            <p className="text-xs text-gray-500 mb-1 tracking-wider uppercase">Active Agent</p>
+            <p className="font-medium text-white truncate">{user.username}</p>
+            <div className="mt-3 flex items-center justify-between text-sm">
+              <span className="text-gray-400">Credits:</span>
+              <span className="text-pink-400 font-bold">{user.credits}</span>
+            </div>
+            <div className="mt-1 flex items-center justify-between text-sm">
+              <span className="text-gray-400">Plan:</span>
+              <span className="text-white capitalize">{user.subscription}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
-function NavItem({ to, icon, label, active }: { to: string; icon: React.ReactNode; label: string; active: boolean }) {
-  return (
-    <Link to={to} className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${active ? 'bg-pink-600/20 text-pink-400 border border-pink-500/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}>
-      {icon}
-      <span>{label}</span>
-    </Link>
+      {/* Navigation Links */}
+      <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
+        {links.map((link) => (
+          <NavLink
+            key={link.to}
+            to={link.to}
+            end={link.to === '/dashboard'}
+            onClick={closeSidebar} // Closes drawer on mobile when navigating
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium text-sm ${
+                isActive 
+                  ? 'bg-pink-500/10 text-pink-400 border border-pink-500/20 shadow-[inset_0_0_12px_rgba(236,72,153,0.1)]' 
+                  : 'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent'
+              }`
+            }
+          >
+            {link.icon} {link.label}
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Logout */}
+      <div className="p-4 md:p-6 border-t border-white/5">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-gray-400 hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/20 border border-transparent transition-all text-sm font-medium"
+        >
+          <LogOut className="w-5 h-5" /> Terminate Session
+        </button>
+      </div>
+    </div>
   );
 }
