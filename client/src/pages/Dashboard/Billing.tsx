@@ -27,7 +27,7 @@ export default function Billing() {
         <PricingCard 
           index={1}
           title="Weekly Pro" 
-          price="₹149" 
+          price="₹99" 
           period="7 Days" 
           desc="Unlimited short investigations." 
           popular 
@@ -37,7 +37,7 @@ export default function Billing() {
         <PricingCard 
           index={2}
           title="Monthly Elite" 
-          price="₹499" 
+          price="₹249" 
           period="30 Days" 
           desc="Enterprise access for analysts." 
           features={['Unlimited lookups','Faster processing speeds', 'Priority customer support', 'Upto 5x Free Data Protection']} 
