@@ -10,7 +10,7 @@ const ProtectRequest = require('../models/ProtectRequest');
 // const cleaner = require('../utils/cleaner'); // Uncomment if you use your cleaner utility
 
 // ============================================================================
-// 1. SEARCH ROUTE (With Fixed Subscription & Credit Logic)
+// 1. SEARCH ROUTE (With Fixed Resilient Subscription & Credit Logic)
 // ============================================================================
 router.post('/search', auth, async (req, res) => {
   try {
@@ -22,23 +22,28 @@ router.post('/search', auth, async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // 2. Check if the user has an ACTIVE subscription
-    const isSubActive = user.subscription !== 'none' && 
-      (user.subscription === 'lifetime' || (user.subscriptionExpiry && new Date(user.subscriptionExpiry) > new Date()));
+    // FAILSAFE LOGIC: Trust the plan string first.
+    // If they have no expiry date set in the DB, it defaults to active, preventing false lockouts.
+    const hasPlan = user.subscription && user.subscription !== 'none';
+    const isExpired = user.subscription !== 'lifetime' && 
+                      user.subscriptionExpiry && 
+                      new Date(user.subscriptionExpiry) < new Date();
+                      
+    const isSubActive = hasPlan && !isExpired;
 
     // 3. GATEKEEPER: Block if no active plan AND 0 credits
     if (!isSubActive && user.credits <= 0) {
       return res.status(403).json({ error: 'Access Paywall Active. Please purchase credits or a plan from the Billing section to continue.' });
     }
 
-    // 4. DEDUCT CREDIT: Only if the user does NOT have an active subscription
+    // 4. DEDUCT CREDIT: Only deduct if the user does NOT have an active subscription
     if (!isSubActive) {
       user.credits -= 1;
       await user.save();
     }
 
     // ========================================================================
-    // ⚠️ YOUR EXTERNAL API CALLS GO HERE ⚠️
+    // YOUR EXTERNAL API CALLS GO HERE
     // Replace this block with your actual external API requests
     // ========================================================================
     let resultData = {};
