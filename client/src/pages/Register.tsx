@@ -86,7 +86,7 @@ export default function Register() {
 
             <form onSubmit={handleRegister} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 font-medium ml-1">Username (Min 4 chars)</label>
+                <label className="text-xs text-gray-400 font-medium ml-1">Username</label>
                 <div className="relative">
                   <input 
                     type="text" 
@@ -101,7 +101,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 font-medium ml-1">Password (Min 6 chars)</label>
+                <label className="text-xs text-gray-400 font-medium ml-1">Password</label>
                 <div className="relative">
                   <input 
                     type="password" 
