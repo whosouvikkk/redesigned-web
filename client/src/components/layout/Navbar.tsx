@@ -37,7 +37,7 @@ export default function Navbar() {
             </Link>
           ) : (
             <Link to="/login" className="px-5 py-2.5 bg-white text-black hover:bg-gray-200 rounded-full font-bold text-sm transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-105">
-              <LogIn className="w-4 h-4" /> Agent Login
+              <LogIn className="w-4 h-4" /> User Login
             </Link>
           )}
         </div>
