@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Search, CreditCard, LogOut, Shield } from 'lucide-react';
+import { LayoutDashboard, Search, CreditCard, LogOut } from 'lucide-react';
 import api from '../../services/api';
 
 export default function Sidebar({ closeSidebar }: { closeSidebar?: () => void }) {
@@ -27,8 +27,13 @@ export default function Sidebar({ closeSidebar }: { closeSidebar?: () => void })
       
       {/* Logo */}
       <div className="p-6 md:p-8 flex items-center gap-3">
-        <div className="p-2 bg-pink-500/10 rounded-xl border border-pink-500/20">
-          <Shield className="w-6 h-6 text-pink-500" />
+        <div className="p-2 bg-pink-500/10 rounded-xl border border-pink-500/20 flex items-center justify-center">
+          {/* Swapped Shield for your custom witch.png with a glowing drop-shadow */}
+          <img 
+            src="/witch.png" 
+            alt="MoonWitch" 
+            className="w-6 h-6 object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]" 
+          />
         </div>
         <div className="font-bold text-xl tracking-wide text-white">
           Moon<span className="text-pink-500">Witch</span>
