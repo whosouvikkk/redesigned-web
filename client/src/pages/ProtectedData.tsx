@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, MessageSquare, AlertCircle, Send, CheckCircle2, FileText, Smartphone } from 'lucide-react';
+import { User, Mail, MessageSquare, AlertCircle, Send, CheckCircle2, FileText, Smartphone, Info } from 'lucide-react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import api from '../services/api';
@@ -28,7 +28,7 @@ export default function ProtectedData() {
     setErrorMessage('');
 
     try {
-      // Sends the new fields to your backend
+      // Sends the fields to your backend (which forwards to Discord)
       await api.post('/osint/protect-request', formData);
       setStatus('success');
     } catch (err: any) {
@@ -73,9 +73,9 @@ export default function ProtectedData() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-3 tracking-tight">Data Removal Request</h1>
-            <p className="text-gray-400 font-light text-center mb-10 max-w-lg mx-auto">
-              Submit an official request to redact your personal identifiers from the MoonWitch intelligence nodes.
+            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-3 tracking-tight">Manual Data Removal</h1>
+            <p className="text-gray-400 font-light text-center mb-8 max-w-lg mx-auto">
+              Submit a request to have your personal identifiers manually redacted from the MoonWitch intelligence nodes.
             </p>
 
             {status === 'success' ? (
@@ -86,12 +86,17 @@ export default function ProtectedData() {
               >
                 <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-white mb-2">Request Logged Securely</h3>
-                <p className="text-sm text-gray-400 font-light">
-                  Your redaction request has been submitted to our administrative queue. We will review and process your request shortly. Please ensure your payment of 199rs is completed.
-                </p>
+                <div className="text-sm text-gray-300 font-light space-y-4 max-w-md mx-auto text-left bg-black/40 p-6 rounded-xl border border-white/5 mt-6">
+                  <p className="font-semibold text-white">Next Steps:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>Our admin team has received your request.</li>
+                    <li>We will contact you via your provided Telegram ID or Email to process the <strong className="text-pink-400">199 INR</strong> removal fee.</li>
+                    <li>Once payment is verified, your data will be <strong className="text-white">manually and permanently removed</strong> from our systems.</li>
+                  </ul>
+                </div>
                 <button 
                   onClick={() => { setStatus('idle'); setFormData({ fullName: '', email: '', telegram: '', dataToProtect: '', details: '' }); }}
-                  className="mt-6 px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-xl transition-colors"
+                  className="mt-8 px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-xl transition-colors"
                 >
                   Submit Another Request
                 </button>
@@ -99,6 +104,14 @@ export default function ProtectedData() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 
+                <div className="bg-pink-500/10 border border-pink-500/20 p-4 rounded-xl flex gap-3 mb-6 shadow-inner">
+                  <Info className="w-5 h-5 text-pink-400 shrink-0 mt-0.5" />
+                  <p className="text-xs md:text-sm text-pink-200/80 leading-relaxed">
+                    <strong className="text-pink-400 block mb-1">Manual Process (199rs)</strong>
+                    Data protection is not automatic. After submitting this form, an admin will contact you to collect the processing fee. Your data will only be removed manually after successful payment.
+                  </p>
+                </div>
+
                 {status === 'error' && (
                   <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl text-sm flex items-center gap-3 shadow-inner mb-6">
                     <AlertCircle className="w-5 h-5 shrink-0" />
