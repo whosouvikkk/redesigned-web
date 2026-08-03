@@ -16,7 +16,7 @@ export default function Overview() {
       {(!isSubActive && user?.credits <= 0) && (
         <div className="bg-pink-500/10 border border-pink-500/30 p-6 rounded-2xl mb-8">
           <h3 className="text-lg font-bold text-pink-400 mb-2">Access Paywall Active</h3>
-          <p className="text-sm text-gray-300">You currently have 0 credits and no active subscription. Please contact the administrator to top up your account and restore search capabilities.</p>
+          <p className="text-sm text-gray-300">You currently have 0 credits and no active subscription. Upgrade your plan or purchase additional credits from the Billing section to continue.</p>
         </div>
       )}
 
