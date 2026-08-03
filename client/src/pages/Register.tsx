@@ -17,12 +17,12 @@ export default function Register() {
 
     // --- Frontend Validation Constraints ---
     if (username.length < 4) {
-      setError('Agent ID must be at least 4 characters long.');
+      setError('Username must be at least 4 characters long.');
       return;
     }
 
     if (password.length < 6) {
-      setError('Security Key must be at least 6 characters long.');
+      setError('Password must be at least 6 characters long.');
       return;
     }
 
@@ -39,7 +39,7 @@ export default function Register() {
       // 3. Route to dashboard (new users have 0 credits, so DashboardLayout or Overview handles them)
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Registration failed. This Agent ID might already be taken.');
+      setError(err.response?.data?.error || 'Registration failed. This username might already be taken.');
     } finally {
       setLoading(false);
     }
@@ -86,7 +86,7 @@ export default function Register() {
 
             <form onSubmit={handleRegister} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 font-medium ml-1">Agent ID / Username (Min 4 chars)</label>
+                <label className="text-xs text-gray-400 font-medium ml-1">Username (Min 4 chars)</label>
                 <div className="relative">
                   <input 
                     type="text" 
@@ -101,7 +101,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 font-medium ml-1">Security Key / Password (Min 6 chars)</label>
+                <label className="text-xs text-gray-400 font-medium ml-1">Password (Min 6 chars)</label>
                 <div className="relative">
                   <input 
                     type="password" 
