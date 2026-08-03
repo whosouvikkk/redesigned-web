@@ -3,7 +3,6 @@ import { useOutletContext, Link } from 'react-router-dom';
 import { ShieldAlert, ArrowRight, Zap, Database, Activity } from 'lucide-react';
 
 export default function Overview() {
-  // Grab the user data passed down from the DashboardLayout
   const { user } = useOutletContext<any>();
 
   // Check if the user has an active subscription
