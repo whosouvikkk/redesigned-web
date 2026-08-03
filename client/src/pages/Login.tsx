@@ -11,40 +11,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Check if already logged in when clicking a plan from the landing page
+  // Check if already logged in when visiting the login page
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      evaluateAndRedirect();
-    }
-  }, []);
-
-  // Core Logic: Evaluates user credits/plans and routes accordingly
-  const evaluateAndRedirect = async (userData?: any) => {
-    try {
-      // Use provided user data, or fetch it if missing (e.g. on page load)
-      let user = userData;
-      if (!user) {
-        const res = await api.get('/auth/me');
-        user = res.data;
-      }
-
-      // Check if subscription is active
-      const isSubActive = user.subscription !== 'none' && 
-        (user.subscription === 'lifetime' || (user.subscriptionExpiry && new Date(user.subscriptionExpiry) > new Date()));
-
-      // Smart Redirect
-      if (!isSubActive && user.credits <= 0) {
-        navigate('/dashboard/billing'); // Out of credits & no plan -> Go to Billing
-      } else {
-        navigate('/dashboard'); // Has credits or plan -> Go to Dashboard
-      }
-    } catch (err) {
-      // Fallback: If fetching user fails, just route to dashboard
-      // The DashboardLayout will handle kicking invalid tokens out.
       navigate('/dashboard');
     }
-  };
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +29,8 @@ export default function Login() {
       const { data } = await api.post('/auth/login', { username, password });
       localStorage.setItem('token', data.token);
       
-      // 2. Run smart redirect logic
-      await evaluateAndRedirect(data.user);
+      // 2. Direct route to Dashboard Overview
+      navigate('/dashboard');
       
     } catch (err: any) {
       setError(err.response?.data?.error || 'Authentication failed. Please check your credentials.');
@@ -89,7 +62,6 @@ export default function Login() {
           <div className="relative z-10">
             <div className="flex justify-center mb-8">
               <Link to="/" className="p-4 bg-white/[0.05] border border-white/10 rounded-2xl shadow-inner hover:bg-pink-500/10 hover:border-pink-500/30 transition-all group flex items-center justify-center">
-                {/* Swapped Shield for your custom witch.png */}
                 <img 
                   src="/witch.png" 
                   alt="MoonWitch" 
@@ -98,8 +70,8 @@ export default function Login() {
               </Link>
             </div>
             
-            <h2 className="text-3xl font-bold text-center mb-2 text-white tracking-tight">Welcome Back</h2>
-            <p className="text-sm text-gray-400 text-center mb-8 font-light">Access your dashboard and Open Source Intelligence Tools.</p>
+            <h2 className="text-3xl font-bold text-center mb-2 text-white tracking-tight">Agent Authorization</h2>
+            <p className="text-sm text-gray-400 text-center mb-8 font-light">Access your intelligence dashboard.</p>
 
             {error && (
               <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3.5 rounded-xl mb-6 text-sm text-center shadow-inner flex items-center justify-center gap-2">
