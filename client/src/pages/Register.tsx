@@ -75,8 +75,8 @@ export default function Register() {
               </Link>
             </div>
             
-            <h2 className="text-3xl font-bold text-center mb-2 text-white tracking-tight">Initialize Account</h2>
-            <p className="text-sm text-gray-400 text-center mb-8 font-light">Create your intelligence credentials.</p>
+            <h2 className="text-3xl font-bold text-center mb-2 text-white tracking-tight">Join MoonWitch</h2>
+            <p className="text-sm text-gray-400 text-center mb-8 font-light">Create your account and start exploring powerful OSINT tools.</p>
 
             {error && (
               <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3.5 rounded-xl mb-6 text-sm text-center shadow-inner flex items-center justify-center gap-2">
