@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Lock, User as UserIcon, Loader2, ArrowRight, AlertCircle } from 'lucide-react';
 import api from '../services/api';
-import { Shield, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -10,61 +11,128 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // --- Frontend Validation Constraints ---
+    if (username.length < 4) {
+      setError('Agent ID must be at least 4 characters long.');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Security Key must be at least 6 characters long.');
+      return;
+    }
+
     setLoading(true);
+
     try {
-      const { data } = await api.post('/auth/register', { username, password });
+      // 1. Create the account
+      await api.post('/auth/register', { username, password });
+      
+      // 2. Automatically authenticate the new user
+      const { data } = await api.post('/auth/login', { username, password });
       localStorage.setItem('token', data.token);
+      
+      // 3. Route to dashboard (new users have 0 credits, so DashboardLayout or Overview handles them)
       navigate('/dashboard');
     } catch (err: any) {
-      console.error('Registration Error:', err);
-      setError(err.response?.data?.error || 'Network error: Backend unreachable. Check Vercel logs.');
+      setError(err.response?.data?.error || 'Registration failed. This Agent ID might already be taken.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-dark flex items-center justify-center px-6 relative overflow-hidden font-sans">
-      <div className="absolute inset-0 bg-pink-glow opacity-60 pointer-events-none" />
+    <div className="min-h-screen bg-black flex items-center justify-center p-6 relative overflow-hidden font-sans">
       
-      <div className="w-full max-w-md bg-[#0a0508]/80 backdrop-blur-xl border border-white/10 p-8 rounded-3xl relative z-10 shadow-3d hover:shadow-3d-hover transition-all duration-500 shadow-glass-edge">
-        <Link to="/" className="flex items-center justify-center gap-2 mb-6 font-bold text-xl">
-          <Shield className="text-pink-500 w-6 h-6" />
-          <span>MOONWITCH<span className="text-pink-500">.OSINT</span></span>
-        </Link>
+      {/* --- BACKGROUND LIGHTING --- */}
+      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-pink-600 rounded-full mix-blend-screen filter blur-[150px] opacity-40 pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-rose-600 rounded-full mix-blend-screen filter blur-[150px] opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
 
-        <h2 className="text-xl font-semibold text-center mb-2 text-white">Initialize Account</h2>
-        <p className="text-sm text-gray-400 text-center mb-8">Create your intelligence credentials.</p>
+      {/* --- REGISTRATION CARD --- */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md relative z-10"
+      >
+        <div className="bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.8)] p-8 md:p-10 rounded-[2rem] relative overflow-hidden">
+          
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
 
-        {error && <div className="bg-pink-500/10 border border-pink-500/20 text-pink-400 p-3 rounded-xl mb-6 text-sm text-center shadow-inner">{error}</div>}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">Username</label>
-            <div className="relative">
-              <input type="text" value={username} onChange={e => setUsername(e.target.value)} required disabled={loading} className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 pl-11 text-sm text-white outline-none focus:border-pink-500 transition-colors shadow-inner disabled:opacity-50" placeholder="Choose Username" />
-              <User className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-500" />
+          <div className="relative z-10">
+            <div className="flex justify-center mb-8">
+              <Link to="/" className="p-4 bg-white/[0.05] border border-white/10 rounded-2xl shadow-inner hover:bg-pink-500/10 hover:border-pink-500/30 transition-all group flex items-center justify-center">
+                <img 
+                  src="/witch.png" 
+                  alt="MoonWitch" 
+                  className="w-8 h-8 object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.8)] group-hover:scale-110 transition-transform" 
+                />
+              </Link>
             </div>
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">Password</label>
-            <div className="relative">
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} required disabled={loading} className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 pl-11 text-sm text-white outline-none focus:border-pink-500 transition-colors shadow-inner disabled:opacity-50" placeholder="••••••••" />
-              <Lock className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-500" />
-            </div>
-          </div>
-          <button type="submit" disabled={loading} className="w-full py-3 bg-gradient-to-b from-pink-500 to-pink-700 hover:from-pink-400 hover:to-pink-600 rounded-xl font-medium text-sm text-white transition-all flex items-center justify-center gap-2 shadow-[0_10px_20px_rgba(236,72,153,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)] disabled:opacity-70">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create Credentials'} {!loading && <ArrowRight className="w-4 h-4" />}
-          </button>
-        </form>
+            
+            <h2 className="text-3xl font-bold text-center mb-2 text-white tracking-tight">Initialize Account</h2>
+            <p className="text-sm text-gray-400 text-center mb-8 font-light">Create your intelligence credentials.</p>
 
-        <div className="mt-6 text-center text-sm text-gray-400">
-          Already registered? <Link to="/login" className="text-pink-400 hover:text-pink-300 font-medium transition-colors">Sign In</Link>
+            {error && (
+              <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3.5 rounded-xl mb-6 text-sm text-center shadow-inner flex items-center justify-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+              </div>
+            )}
+
+            <form onSubmit={handleRegister} className="space-y-5">
+              <div className="space-y-1.5">
+                <label className="text-xs text-gray-400 font-medium ml-1">Agent ID / Username (Min 4 chars)</label>
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    value={username} 
+                    onChange={e => setUsername(e.target.value)} 
+                    required 
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 pl-11 text-sm text-white outline-none focus:border-pink-500 transition-colors shadow-inner placeholder:text-gray-600 focus:bg-white/[0.02]" 
+                    placeholder="Enter your username" 
+                  />
+                  <UserIcon className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs text-gray-400 font-medium ml-1">Security Key / Password (Min 6 chars)</label>
+                <div className="relative">
+                  <input 
+                    type="password" 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    required 
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3.5 pl-11 text-sm text-white outline-none focus:border-pink-500 transition-colors shadow-inner placeholder:text-gray-600 focus:bg-white/[0.02] tracking-widest" 
+                    placeholder="••••••••" 
+                  />
+                  <Lock className="absolute left-4 top-4 w-4 h-4 text-gray-500" />
+                </div>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full py-4 mt-4 bg-white text-black hover:bg-gray-200 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-[0_0_30px_rgba(236,72,153,0.4)]"
+              >
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><ArrowRight className="w-5 h-5" /> Create Credentials</>}
+              </button>
+            </form>
+
+            <p className="text-center text-sm text-gray-400 mt-8 font-light">
+              Already registered?{' '}
+              <Link to="/login" className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-4 decoration-pink-500/30">
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
