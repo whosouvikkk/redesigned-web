@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, Lock, User as UserIcon, Loader2, ArrowRight } from 'lucide-react';
+import { Lock, User as UserIcon, Loader2, ArrowRight, AlertCircle } from 'lucide-react';
 import api from '../services/api';
 
 export default function Login() {
@@ -88,8 +88,13 @@ export default function Login() {
 
           <div className="relative z-10">
             <div className="flex justify-center mb-8">
-              <Link to="/" className="p-4 bg-white/[0.05] border border-white/10 rounded-2xl shadow-inner hover:bg-pink-500/10 hover:border-pink-500/30 transition-all group">
-                <Shield className="w-8 h-8 text-gray-300 group-hover:text-pink-400 transition-colors" />
+              <Link to="/" className="p-4 bg-white/[0.05] border border-white/10 rounded-2xl shadow-inner hover:bg-pink-500/10 hover:border-pink-500/30 transition-all group flex items-center justify-center">
+                {/* Swapped Shield for your custom witch.png */}
+                <img 
+                  src="/witch.png" 
+                  alt="MoonWitch" 
+                  className="w-8 h-8 object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.8)] group-hover:scale-110 transition-transform" 
+                />
               </Link>
             </div>
             
@@ -98,7 +103,7 @@ export default function Login() {
 
             {error && (
               <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3.5 rounded-xl mb-6 text-sm text-center shadow-inner flex items-center justify-center gap-2">
-                <Shield className="w-4 h-4" /> {error}
+                <AlertCircle className="w-4 h-4 shrink-0" /> {error}
               </div>
             )}
 
