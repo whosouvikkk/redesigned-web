@@ -7,10 +7,10 @@ const auth = require('../middleware/auth');
 const User = require('../models/User');
 const History = require('../models/History');
 const ProtectRequest = require('../models/ProtectRequest');
-// const cleaner = require('../utils/cleaner'); // Uncomment if you use your cleaner utility
+// const cleaner = require('../utils/cleaner'); // Uncomment if you use a cleaner
 
 // ============================================================================
-// 1. SEARCH ROUTE (With Fixed Resilient Subscription & Credit Logic)
+// 1. SEARCH ROUTE (With Failsafe Subscription & Credit Logic)
 // ============================================================================
 router.post('/search', auth, async (req, res) => {
   try {
@@ -22,7 +22,7 @@ router.post('/search', auth, async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // FAILSAFE LOGIC: Trust the plan string first.
+    // 2. FAILSAFE LOGIC: Trust the plan string first.
     // If they have no expiry date set in the DB, it defaults to active, preventing false lockouts.
     const hasPlan = user.subscription && user.subscription !== 'none';
     const isExpired = user.subscription !== 'lifetime' && 
@@ -42,27 +42,29 @@ router.post('/search', auth, async (req, res) => {
       await user.save();
     }
 
-    // ========================================================================
-    // YOUR EXTERNAL API CALLS GO HERE
-    // Replace this block with your actual external API requests
-    // ========================================================================
     let resultData = {};
 
+    // ========================================================================
+    // 🚨 🚨 🚨  YOUR EXTERNAL API CALLS GO HERE  🚨 🚨 🚨
+    // Replace the placeholder code inside these IF statements with your actual
+    // axios.get requests to your third-party API providers!
+    // ========================================================================
+
     if (type === 'number') {
-      // Example: 
-      // const apiRes = await axios.get(`https://your-osint-api.com/number?q=${query}`);
-      // resultData = apiRes.data;
+      // PASTE YOUR NUMBER LOOKUP CODE HERE
       resultData = { message: "Placeholder for Number lookup", query }; 
 
     } else if (type === 'vehicle') {
-      // Example:
-      // const apiRes = await axios.get(`https://your-osint-api.com/vehicle?q=${query}`);
-      // resultData = cleaner(apiRes.data);
+      // PASTE YOUR VEHICLE LOOKUP CODE HERE
       resultData = { message: "Placeholder for Vehicle lookup", query };
 
     } else if (type === 'aadhar') {
-      // Add your aadhar logic
+      // PASTE YOUR AADHAR LOOKUP CODE HERE
+      resultData = { message: "Placeholder for Aadhar lookup", query };
     }
+
+    // ========================================================================
+    // 🚨 🚨 🚨  END OF EXTERNAL API CALLS  🚨 🚨 🚨
     // ========================================================================
 
     // 5. Log the successful search to History
@@ -98,7 +100,6 @@ router.post('/search', auth, async (req, res) => {
 // ============================================================================
 router.get('/history', auth, async (req, res) => {
   try {
-    // Fetch the latest 50 history logs for this specific user
     const history = await History.find({ userId: req.user.id })
                                  .sort({ createdAt: -1 })
                                  .limit(50);
@@ -116,7 +117,6 @@ router.post('/protect-request', async (req, res) => {
   try {
     const { fullName, email, telegram, dataToProtect, details } = req.body;
     
-    // Save the request to the MongoDB database
     const request = await ProtectRequest.create({ 
       fullName, 
       email, 
@@ -125,14 +125,13 @@ router.post('/protect-request', async (req, res) => {
       details 
     });
 
-    // Fire the Discord Webhook notification
     if (process.env.DISCORD_WEBHOOK_URL) {
       try {
         await axios.post(process.env.DISCORD_WEBHOOK_URL, {
           embeds: [{
             title: "🛡️ New Data Removal Request (199rs)",
             description: "A user has submitted a paid manual redaction request.",
-            color: 0xec4899, // MoonWitch Pink
+            color: 0xec4899,
             fields: [
               { name: "Full Name", value: fullName, inline: true },
               { name: "Contact Email", value: email, inline: true },
