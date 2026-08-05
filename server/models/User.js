@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  credits: { type: Number, default: 5 },
+  credits: { type: Number, default: 0 },
   subscription: { 
     type: String, 
     enum: ['none', 'weekly', 'monthly', 'lifetime'], 
