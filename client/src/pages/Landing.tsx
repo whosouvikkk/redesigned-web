@@ -187,6 +187,67 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* --- FOUNDERS / OWNERS SECTION --- */}
+      <section className="py-24 relative z-10 w-full max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            The Architects of <span className="text-pink-500">MoonWitch</span>
+          </h2>
+          <p className="text-gray-400 font-light max-w-2xl mx-auto text-sm md:text-base">
+            Meet the minds behind the most advanced intelligence and OSINT platform.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          
+          {/* Founder 1 */}
+          <div className="bg-black/40 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden group hover:bg-white/[0.04] transition-colors duration-500">
+            {/* Grainy Noise Background */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="w-24 h-24 rounded-full bg-pink-500/10 border border-pink-500/30 mb-6 p-1 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+                {/* Replace src with your actual image URL or local path like "/founder1.jpg" */}
+                <img 
+                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Founder1&backgroundColor=000000" 
+                  alt="Founder 1" 
+                  className="w-full h-full rounded-full object-cover" 
+                />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Name 1</h3>
+              <p className="text-pink-400 text-xs md:text-sm font-bold mb-4 uppercase tracking-[0.2em]">Co-Founder & Lead Architect</p>
+              <p className="text-gray-400 font-light text-sm leading-relaxed max-w-sm">
+                Visionary behind the MoonWitch OSINT engine. Specializing in secure infrastructure, data reconnaissance, and advanced vector targeting.
+              </p>
+            </div>
+          </div>
+
+          {/* Founder 2 */}
+          <div className="bg-black/40 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden group hover:bg-white/[0.04] transition-colors duration-500">
+            {/* Grainy Noise Background */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 mix-blend-overlay pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="w-24 h-24 rounded-full bg-rose-500/10 border border-rose-500/30 mb-6 p-1 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
+                {/* Replace src with your actual image URL or local path like "/founder2.jpg" */}
+                <img 
+                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Founder2&backgroundColor=000000" 
+                  alt="Founder 2" 
+                  className="w-full h-full rounded-full object-cover" 
+                />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Name 2</h3>
+              <p className="text-rose-400 text-xs md:text-sm font-bold mb-4 uppercase tracking-[0.2em]">Co-Founder & Operations</p>
+              <p className="text-gray-400 font-light text-sm leading-relaxed max-w-sm">
+                Driving force behind network expansion and community operations. Ensuring 100% uptime and seamless intelligence delivery.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      {/* --- END FOUNDERS SECTION --- */}
+
       <Footer />
     </div>
   );
