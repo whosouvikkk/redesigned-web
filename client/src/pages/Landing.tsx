@@ -206,7 +206,7 @@ export default function Landing() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           
-          {/* Founder 1 */}
+          {/* Founder 1 - Souvik */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -219,12 +219,12 @@ export default function Landing() {
             <div className="relative z-10">
               <div className="w-24 h-24 mx-auto rounded-full bg-pink-500/10 border border-pink-500/30 mb-6 p-1 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(236,72,153,0.3)]">
                 <img 
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Founder1&backgroundColor=000000" 
-                  alt="Founder 1" 
+                  src="/souvik.png" 
+                  alt="Souvik" 
                   className="w-full h-full rounded-full object-cover" 
                 />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Name 1</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Souvik</h3>
               <p className="text-pink-400 text-xs md:text-sm font-bold mb-4 uppercase tracking-[0.2em]">Co-Founder & Lead Architect</p>
               <p className="text-gray-400 font-light text-sm leading-relaxed max-w-sm mx-auto">
                 Visionary behind the MoonWitch OSINT engine. Specializing in secure infrastructure, data reconnaissance, and advanced vector targeting.
@@ -232,7 +232,7 @@ export default function Landing() {
             </div>
           </motion.div>
 
-          {/* Founder 2 */}
+          {/* Founder 2 - Spandan */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,12 +245,12 @@ export default function Landing() {
             <div className="relative z-10">
               <div className="w-24 h-24 mx-auto rounded-full bg-rose-500/10 border border-rose-500/30 mb-6 p-1 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
                 <img 
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Founder2&backgroundColor=000000" 
-                  alt="Founder 2" 
+                  src="/spandan.png" 
+                  alt="Spandan" 
                   className="w-full h-full rounded-full object-cover" 
                 />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Name 2</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-1 tracking-wide">Spandan</h3>
               <p className="text-rose-400 text-xs md:text-sm font-bold mb-4 uppercase tracking-[0.2em]">Co-Founder & Operations</p>
               <p className="text-gray-400 font-light text-sm leading-relaxed max-w-sm mx-auto">
                 Driving force behind network expansion and community operations. Ensuring 100% uptime and seamless intelligence delivery.
